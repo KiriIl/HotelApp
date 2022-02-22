@@ -4,4 +4,11 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Views\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
