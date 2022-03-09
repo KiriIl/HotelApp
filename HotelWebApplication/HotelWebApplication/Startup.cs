@@ -1,5 +1,6 @@
 using HotelEntityFramework;
 using HotelEntityFramework.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ namespace HotelWebApplication
             services.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
             services.AddControllersWithViews();
             services.AddScoped<UserRepository>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
+                AddCookie(options => { options.LoginPath = "/User/Login"; });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

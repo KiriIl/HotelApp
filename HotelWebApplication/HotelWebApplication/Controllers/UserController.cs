@@ -1,7 +1,12 @@
 ﻿using HotelEntityFramework.Models;
 using HotelEntityFramework.Repositories;
 using HotelWebApplication.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace HotelWebApplication.Controllers
 {
@@ -55,7 +60,7 @@ namespace HotelWebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel viewModel)
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -63,12 +68,28 @@ namespace HotelWebApplication.Controllers
 
                 if (logIn)
                 {
-                    //auth
+                    await Authentication(viewModel.Login);
                     return RedirectToAction("Index", "Home");
                 }
             }
 
             return View();
+        }
+
+        public async Task Authentication(string login)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, login)
+            };
+
+            ClaimsIdentity id = new ClaimsIdentity(
+                claims,
+                "ApplicationCookie",
+                ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }
