@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace HotelEntityFramework.Repositories
 {
-    public class UserRepository : BaseRepository<User>
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(MyContext context) : base(context) { }
+        public UserRepository(MyContext context) : base(context) {}
 
         public User Get(string login)
         {

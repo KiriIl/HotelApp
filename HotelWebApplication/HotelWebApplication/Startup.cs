@@ -24,7 +24,7 @@ namespace HotelWebApplication
             var connectionString = configuration.GetValue<string>("connectionString");
             services.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
             services.AddControllersWithViews();
-            services.AddScoped<UserRepository>();
+            services.AddScoped<IUserRepository>(x => new UserRepository(x.GetService<MyContext>()));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
                 AddCookie(options => { options.LoginPath = "/User/Login"; });
         }

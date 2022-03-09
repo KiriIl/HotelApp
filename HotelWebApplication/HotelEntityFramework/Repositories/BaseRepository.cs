@@ -1,9 +1,10 @@
 ﻿using HotelEntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace HotelEntityFramework.Repositories
 {
-    public abstract class BaseRepository<T> where T : BaseModel
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     {
         protected DbSet<T> dbSet;
         protected MyContext context;
@@ -12,6 +13,11 @@ namespace HotelEntityFramework.Repositories
         {
             this.context = context;
             dbSet = this.context.Set<T>();
+        }
+
+        public virtual T Get(long id)
+        {
+            return dbSet.SingleOrDefault(x => x.Id == id);
         }
 
         public virtual void Save(T model)

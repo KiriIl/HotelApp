@@ -12,9 +12,9 @@ namespace HotelWebApplication.Controllers
 {
     public class UserController : Controller
     {
-        private UserRepository userRepository;
+        private IUserRepository userRepository;
 
-        public UserController(UserRepository userRepository)
+        public UserController(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
