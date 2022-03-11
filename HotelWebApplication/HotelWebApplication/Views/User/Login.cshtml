@@ -4,19 +4,24 @@
 }
 
 <div>
-    <form action="Login" method="post">
-        <div>
-            @Html.DisplayNameFor(x => x.Login):
-            @Html.TextBoxFor(x => x.Login)
-            @Html.ValidationMessageFor(x => x.Login)
-        </div>
-        <div>
-            @Html.DisplayNameFor(x => x.Password):
-            @Html.TextBoxFor(x => x.Password)
-            @Html.ValidationMessageFor(x => x.Password)
-        </div>
-        <div>
-            <button type="submit">Ok</button>
-        </div>
-    </form>
+    <div>
+        <form action="Login" method="post">
+            <div>
+                @Html.DisplayNameFor(x => x.Login):
+                @Html.TextBoxFor(x => x.Login)
+                @Html.ValidationMessageFor(x => x.Login)
+            </div>
+            <div>
+                @Html.DisplayNameFor(x => x.Password):
+                @Html.TextBoxFor(x => x.Password)
+                @Html.ValidationMessageFor(x => x.Password)
+            </div>
+            <div>
+                <button type="submit">Ok</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <a href="/User/Registration">No account?</a>
+    </div>
 </div>

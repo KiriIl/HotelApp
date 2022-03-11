@@ -1,22 +1,24 @@
-﻿using HotelEntityFramework.Models;
+﻿using HotelBLL.Services;
+using HotelEntityFramework.Models;
 using HotelEntityFramework.Repositories;
 using HotelWebApplication.Models;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace HotelWebApplication.Controllers
 {
     public class UserController : Controller
     {
-        private IUserRepository userRepository;
+        private IUserRepository _userRepository;
+        private IUserService _userService;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(
+            IUserRepository userRepository,
+            IUserService userService)
         {
-            this.userRepository = userRepository;
+            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -31,11 +33,11 @@ namespace HotelWebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(RegistrationViewModel viewModel)
+        public async Task<IActionResult> Registration(RegistrationViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var findExistLogin = userRepository.Get(viewModel.Login);
+                var findExistLogin = _userRepository.Get(viewModel.Login);
 
                 if (findExistLogin == null)
                 {
@@ -46,7 +48,11 @@ namespace HotelWebApplication.Controllers
                         Name = viewModel.Name,
                     };
 
-                    userRepository.Save(newUser);
+                    _userRepository.Save(newUser);
+
+                    await HttpContext.SignInAsync(_userService.GetPrincipal(viewModel.Login));
+
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
@@ -64,11 +70,11 @@ namespace HotelWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var logIn = userRepository.LogIn(viewModel.Login, viewModel.Password);
+                var logIn = _userRepository.LogIn(viewModel.Login, viewModel.Password);
 
                 if (logIn)
                 {
-                    await Authentication(viewModel.Login);
+                    await HttpContext.SignInAsync(_userService.GetPrincipal(viewModel.Login));
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -76,20 +82,20 @@ namespace HotelWebApplication.Controllers
             return View();
         }
 
-        public async Task Authentication(string login)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, login)
-            };
+        //public async Task Authentication(string login)
+        //{
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimsIdentity.DefaultNameClaimType, login)
+        //    };
 
-            ClaimsIdentity id = new ClaimsIdentity(
-                claims,
-                "ApplicationCookie",
-                ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
+        //    ClaimsIdentity id = new ClaimsIdentity(
+        //        claims,
+        //        "ApplicationCookie",
+        //        ClaimsIdentity.DefaultNameClaimType,
+        //        ClaimsIdentity.DefaultRoleClaimType);
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
-        }
+        //    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        //}
     }
 }

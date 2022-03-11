@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HotelEntityFramework.Models.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelEntityFramework.Models
@@ -9,6 +10,7 @@ namespace HotelEntityFramework.Models
         public int RoomsCount { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Cost { get; set; }
+        public RoomType RoomType { get; set; }
         public string Info { get; set; }
     }
 }

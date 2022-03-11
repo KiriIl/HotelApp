@@ -1,3 +1,4 @@
+using HotelBLL.Services;
 using HotelEntityFramework;
 using HotelEntityFramework.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -22,11 +23,12 @@ namespace HotelWebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = configuration.GetValue<string>("connectionString");
-            services.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
             services.AddControllersWithViews();
-            services.AddScoped<IUserRepository>(x => new UserRepository(x.GetService<MyContext>()));
+            services.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
                 AddCookie(options => { options.LoginPath = "/User/Login"; });
+            services.AddScoped<IUserRepository>(x => new UserRepository(x.GetService<MyContext>()));
+            services.AddScoped<IUserService>(x => new UserService());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
