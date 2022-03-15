@@ -28,7 +28,7 @@ namespace HotelWebApplication
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
                 AddCookie(options => { options.LoginPath = "/User/Login"; });
             services.AddScoped<IUserRepository>(x => new UserRepository(x.GetService<MyContext>()));
-            services.AddScoped<IUserService>(x => new UserService());
+            services.AddScoped<IUserService>(x => new UserService(x.GetService<IUserRepository>()));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

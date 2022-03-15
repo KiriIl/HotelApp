@@ -1,6 +1,6 @@
-﻿using HotelBLL.Services;
-using HotelEntityFramework.Models;
-using HotelEntityFramework.Repositories;
+﻿using HotelBLL.DTOModels;
+using HotelBLL.Services;
+using HotelEntityFramework.Models.Enums;
 using HotelWebApplication.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -10,14 +10,11 @@ namespace HotelWebApplication.Controllers
 {
     public class UserController : Controller
     {
-        private IUserRepository _userRepository;
         private IUserService _userService;
 
         public UserController(
-            IUserRepository userRepository,
             IUserService userService)
         {
-            _userRepository = userRepository;
             _userService = userService;
         }
 
@@ -37,18 +34,17 @@ namespace HotelWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var findExistLogin = _userRepository.Get(viewModel.Login);
+                var isExist = _userService.FindExitstLogin(viewModel.Login);
 
-                if (findExistLogin == null)
+                if (!isExist)
                 {
-                    var newUser = new User
+                    _userService.CreateUser(new UserDTO()
                     {
                         Login = viewModel.Login,
                         Password = viewModel.Password,
                         Name = viewModel.Name,
-                    };
-
-                    _userRepository.Save(newUser);
+                        Role = Role.Client,
+                    });
 
                     await HttpContext.SignInAsync(_userService.GetPrincipal(viewModel.Login));
 
@@ -70,7 +66,7 @@ namespace HotelWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var logIn = _userRepository.LogIn(viewModel.Login, viewModel.Password);
+                var logIn = _userService.CheckUser(viewModel.Login, viewModel.Password);
 
                 if (logIn)
                 {
@@ -81,21 +77,5 @@ namespace HotelWebApplication.Controllers
 
             return View();
         }
-
-        //public async Task Authentication(string login)
-        //{
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimsIdentity.DefaultNameClaimType, login)
-        //    };
-
-        //    ClaimsIdentity id = new ClaimsIdentity(
-        //        claims,
-        //        "ApplicationCookie",
-        //        ClaimsIdentity.DefaultNameClaimType,
-        //        ClaimsIdentity.DefaultRoleClaimType);
-
-        //    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
-        //}
     }
 }
