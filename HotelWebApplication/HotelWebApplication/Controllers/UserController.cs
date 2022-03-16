@@ -1,6 +1,6 @@
-﻿using HotelBLL.DTOModels;
+﻿using AutoMapper;
+using HotelBLL.DTOModels;
 using HotelBLL.Services;
-using HotelEntityFramework.Models.Enums;
 using HotelWebApplication.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +10,15 @@ namespace HotelWebApplication.Controllers
 {
     public class UserController : Controller
     {
+        private IMapper _mapper;
         private IUserService _userService;
 
         public UserController(
-            IUserService userService)
+            IUserService userService,
+            IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -38,13 +41,7 @@ namespace HotelWebApplication.Controllers
 
                 if (!isExist)
                 {
-                    _userService.CreateUser(new UserDTO()
-                    {
-                        Login = viewModel.Login,
-                        Password = viewModel.Password,
-                        Name = viewModel.Name,
-                        Role = Role.Client,
-                    });
+                    _userService.CreateUser(_mapper.Map<UserDTO>(viewModel));
 
                     await HttpContext.SignInAsync(_userService.GetPrincipal(viewModel.Login));
 

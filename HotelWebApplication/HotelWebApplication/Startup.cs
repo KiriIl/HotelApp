@@ -1,6 +1,8 @@
+using AutoMapper;
 using HotelBLL.Services;
 using HotelEntityFramework;
 using HotelEntityFramework.Repositories;
+using HotelWebApplication.Automapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,8 +29,12 @@ namespace HotelWebApplication
             services.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
                 AddCookie(options => { options.LoginPath = "/User/Login"; });
+
+            services.AddSingleton(new MapperConfiguration(x => x.AddProfile(new AutomapperProfile())).CreateMapper());
+
             services.AddScoped<IUserRepository>(x => new UserRepository(x.GetService<MyContext>()));
-            services.AddScoped<IUserService>(x => new UserService(x.GetService<IUserRepository>()));
+            services.AddScoped<IUserService>(x => new UserService(x.GetService<IUserRepository>(), x.GetService<IMapper>()));
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
