@@ -4,10 +4,30 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 </head>
 <body>
-    <div>
+    <div class="top">
+        <div class="info">
+            <div class="shift-button">
+                @* shift menu *@
+            </div>
+            <div class="user-info">
+                @* for auth users: notifications, profile, logout *@
+            </div>
+            <div class="login">
+                <a href="/User/Login">Login</a>
+                @* for not auth users *@
+            </div>
+        </div>
+    </div>
+    <div class="content">
         @RenderBody()
+    </div>
+    <div class="footer">
+
     </div>
 </body>
 </html>
