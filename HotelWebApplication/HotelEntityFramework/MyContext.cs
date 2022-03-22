@@ -26,7 +26,6 @@ namespace HotelEntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(x => x.MigrationsAssembly("HotelWebApplication"));
             optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
