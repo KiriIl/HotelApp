@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelBooking.BLL.DTOModels;
+using HotelBooking.DAL.DataModels;
 using HotelBooking.DAL.Models;
 using HotelBooking.WebApplication.PL.Models;
 
@@ -9,7 +10,8 @@ namespace HotelBooking.WebApplication.PL.Automapper
     {
         public AutomapperProfile()
         {
-            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, UserDataModel>().ReverseMap();
+            CreateMap<UserDTO, UserDataModel>().ReverseMap();
             CreateMap<UserDTO, RegistrationViewModel>().ReverseMap();
         }
     }

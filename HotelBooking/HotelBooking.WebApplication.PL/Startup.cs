@@ -33,8 +33,14 @@ namespace HotelBooking.WebApplication.PL
 
             services.AddSingleton(new MapperConfiguration(x => x.AddProfile(new AutomapperProfile())).CreateMapper());
 
-            services.AddScoped<IUserRepository>(x => new UserRepository(x.GetService<HotelBookingDbContext>()));
-            services.AddScoped<IUserService>(x => new UserService(x.GetService<IUserRepository>(), x.GetService<IMapper>()));
+            services.AddScoped<IUserRepository>(
+                x => new UserRepository(
+                    x.GetService<HotelBookingDbContext>(),
+                    x.GetService<IMapper>()));
+            services.AddScoped<IUserService>(
+                x => new UserService(
+                    x.GetService<IUserRepository>(),
+                    x.GetService<IMapper>()));
 
         }
 

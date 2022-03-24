@@ -41,7 +41,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
 
                 if (!isExist)
                 {
-                    _userService.CreateUser(_mapper.Map<UserDTO>(viewModel));
+                    _userService.SaveUser(_mapper.Map<UserDTO>(viewModel));
 
                     await HttpContext.SignInAsync(_userService.GetPrincipal(viewModel.Login));
 
@@ -63,7 +63,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var logIn = _userService.CheckUser(viewModel.Login, viewModel.Password);
+                var logIn = _userService.CheckUserLogin(viewModel.Login, viewModel.Password);
 
                 if (logIn)
                 {

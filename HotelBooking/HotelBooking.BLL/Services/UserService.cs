@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelBooking.BLL.DTOModels;
+using HotelBooking.DAL.DataModels;
 using HotelBooking.DAL.Models;
 using HotelBooking.DAL.Repositories.IRepositories;
 using System.Collections.Generic;
@@ -44,14 +45,15 @@ namespace HotelBooking.BLL.Services
             return user != null;
         }
 
-        public void CreateUser(UserDTO user)
+        public void SaveUser(UserDTO user)
         {
-            _userRepository.Save(_mapper.Map<User>(user));
+            var userDM = _mapper.Map<UserDataModel>(user);
+            _userRepository.Save(_mapper.Map<User>(userDM));
         }
 
-        public bool CheckUser(string login, string password)
+        public bool CheckUserLogin(string login, string password)
         {
-            return _userRepository.LogIn(login, password);
+            return _userRepository.CheckUserLogin(login, password);
         }
     }
 }

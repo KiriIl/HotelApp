@@ -7,7 +7,7 @@ namespace HotelBooking.BLL.Services
     {
         ClaimsPrincipal GetPrincipal(string login);
         bool FindExitstLogin(string login);
-        void CreateUser(UserDTO user);
-        bool CheckUser(string login, string password);
+        void SaveUser(UserDTO user);
+        bool CheckUserLogin(string login, string password);
     }
 }

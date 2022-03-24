@@ -1,10 +1,11 @@
-﻿using HotelBooking.DAL.Models;
+﻿using HotelBooking.DAL.DataModels;
+using HotelBooking.DAL.Models;
 
 namespace HotelBooking.DAL.Repositories.IRepositories
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        User Get(string login);
-        bool LogIn(string login, string password);
+        UserDataModel Get(string login);
+        bool CheckUserLogin(string login, string password);
     }
 }
