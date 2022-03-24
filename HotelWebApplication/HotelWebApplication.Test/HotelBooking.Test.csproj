@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HotelWebApplication\HotelWebApplication.csproj" />
+    <ProjectReference Include="..\HotelWebApplication\HotelBooking.WebApplication.PL.csproj" />
   </ItemGroup>
 
 </Project>
