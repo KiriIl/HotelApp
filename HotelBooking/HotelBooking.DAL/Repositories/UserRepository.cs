@@ -1,0 +1,20 @@
+﻿using HotelBooking.DAL.Models;
+using System.Linq;
+
+namespace HotelBooking.DAL.Repositories
+{
+    public class UserRepository : BaseRepository<User>, IUserRepository
+    {
+        public UserRepository(MyContext context) : base(context) {}
+
+        public User Get(string login)
+        {
+            return dbSet.SingleOrDefault(x => x.Login == login);
+        }
+
+        public bool LogIn(string login, string password)
+        {
+            return dbSet.Any(x => x.Login == login && x.Password == password);
+        }
+    }
+}
