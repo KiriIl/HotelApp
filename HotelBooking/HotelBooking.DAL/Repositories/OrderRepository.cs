@@ -5,6 +5,6 @@ namespace HotelBooking.DAL.Repositories
 {
     class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
-        public OrderRepository(MyContext context) : base(context) {}
+        public OrderRepository(HotelBookingDbContext context) : base(context) {}
     }
 }

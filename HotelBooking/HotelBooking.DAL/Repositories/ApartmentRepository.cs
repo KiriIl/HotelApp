@@ -5,6 +5,6 @@ namespace HotelBooking.DAL.Repositories
 {
     class ApartmentRepository : BaseRepository<Apartment>, IApartmentRepository
     {
-        public ApartmentRepository(MyContext context) : base(context) {}
+        public ApartmentRepository(HotelBookingDbContext context) : base(context) {}
     }
 }

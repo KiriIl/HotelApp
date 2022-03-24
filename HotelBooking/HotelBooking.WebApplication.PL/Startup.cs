@@ -1,6 +1,6 @@
 using AutoMapper;
 using HotelBooking.BLL.Services;
-using HotelBooking.DAL;
+using HotelBooking.DAL.Models;
 using HotelBooking.DAL.Repositories;
 using HotelBooking.DAL.Repositories.IRepositories;
 using HotelBooking.WebApplication.PL.Automapper;
@@ -27,13 +27,13 @@ namespace HotelBooking.WebApplication.PL
         {
             var connectionString = _configuration.GetValue<string>("connectionString");
             services.AddControllersWithViews();
-            services.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
+            services.AddDbContext<HotelBookingDbContext>(x => x.UseSqlServer(connectionString));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
                 AddCookie(options => { options.LoginPath = "/User/Login"; });
 
             services.AddSingleton(new MapperConfiguration(x => x.AddProfile(new AutomapperProfile())).CreateMapper());
 
-            services.AddScoped<IUserRepository>(x => new UserRepository(x.GetService<MyContext>()));
+            services.AddScoped<IUserRepository>(x => new UserRepository(x.GetService<HotelBookingDbContext>()));
             services.AddScoped<IUserService>(x => new UserService(x.GetService<IUserRepository>(), x.GetService<IMapper>()));
 
         }

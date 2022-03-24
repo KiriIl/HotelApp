@@ -8,9 +8,9 @@ namespace HotelBooking.DAL.Repositories
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     {
         protected DbSet<T> dbSet;
-        protected MyContext context;
+        protected HotelBookingDbContext context;
 
-        public BaseRepository(MyContext context)
+        public BaseRepository(HotelBookingDbContext context)
         {
             this.context = context;
             dbSet = this.context.Set<T>();

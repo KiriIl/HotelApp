@@ -6,7 +6,7 @@ namespace HotelBooking.DAL.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(MyContext context) : base(context) {}
+        public UserRepository(HotelBookingDbContext context) : base(context) {}
 
         public User Get(string login)
         {

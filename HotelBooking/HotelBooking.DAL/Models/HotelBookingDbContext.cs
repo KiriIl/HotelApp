@@ -1,11 +1,10 @@
-﻿using HotelBooking.DAL.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace HotelBooking.DAL
+namespace HotelBooking.DAL.Models
 {
-    public class MyContext : DbContext
+    public class HotelBookingDbContext : DbContext
     {
-        public MyContext(DbContextOptions options) : base(options) { }
+        public HotelBookingDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Apartment> Apartments { get; set; }
