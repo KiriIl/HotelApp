@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HotelBooking.BLL.DTOModels;
-using HotelBooking.BLL.Services;
+using HotelBooking.BLL.Services.IServices;
 using HotelBooking.WebApplication.PL.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;

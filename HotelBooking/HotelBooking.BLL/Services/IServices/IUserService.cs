@@ -1,7 +1,7 @@
 ﻿using HotelBooking.BLL.DTOModels;
 using System.Security.Claims;
 
-namespace HotelBooking.BLL.Services
+namespace HotelBooking.BLL.Services.IServices
 {
     public interface IUserService
     {

@@ -1,5 +1,6 @@
 using AutoMapper;
 using HotelBooking.BLL.Services;
+using HotelBooking.BLL.Services.IServices;
 using HotelBooking.DAL.Models;
 using HotelBooking.DAL.Repositories;
 using HotelBooking.DAL.Repositories.IRepositories;
