@@ -12,7 +12,7 @@ namespace HotelBLL.Services
         private IMapper _mapper;
         private IUserRepository _userRepository;
 
-        public static string AuthMethod = "ApplicationCookie";
+        public const string AuthMethod = "ApplicationCookie";
 
         public UserService(
             IUserRepository userRepository,

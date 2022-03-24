@@ -15,16 +15,16 @@ namespace HotelWebApplication
 {
     public class Startup
     {
-        private IConfiguration configuration;
+        private IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = configuration.GetValue<string>("connectionString");
+            var connectionString = _configuration.GetValue<string>("connectionString");
             services.AddControllersWithViews();
             services.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
