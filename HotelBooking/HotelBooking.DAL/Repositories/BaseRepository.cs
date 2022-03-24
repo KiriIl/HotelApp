@@ -1,4 +1,5 @@
 ﻿using HotelBooking.DAL.Models;
+using HotelBooking.DAL.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 

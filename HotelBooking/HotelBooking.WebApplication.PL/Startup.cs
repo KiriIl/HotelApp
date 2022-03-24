@@ -2,6 +2,7 @@ using AutoMapper;
 using HotelBooking.BLL.Services;
 using HotelBooking.DAL;
 using HotelBooking.DAL.Repositories;
+using HotelBooking.DAL.Repositories.IRepositories;
 using HotelBooking.WebApplication.PL.Automapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;

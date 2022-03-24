@@ -1,6 +1,6 @@
 ﻿using HotelBooking.DAL.Models;
 
-namespace HotelBooking.DAL.Repositories
+namespace HotelBooking.DAL.Repositories.IRepositories
 {
     public interface IUserRepository : IBaseRepository<User>
     {

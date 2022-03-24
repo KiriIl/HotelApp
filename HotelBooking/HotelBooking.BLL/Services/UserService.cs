@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HotelBooking.BLL.DTOModels;
 using HotelBooking.DAL.Models;
-using HotelBooking.DAL.Repositories;
+using HotelBooking.DAL.Repositories.IRepositories;
 using System.Collections.Generic;
 using System.Security.Claims;
 
