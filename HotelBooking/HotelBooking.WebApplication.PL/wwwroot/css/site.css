@@ -1,9 +1,46 @@
 ﻿body {
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
+}
+
+.hide {
+    display: none;
 }
 
 .info {
-    display:flex;
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 30px;
+}
+
+.user-info {
+    display: flex;
+}
+
+.layoyt-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-shift-paragraph {
+    position: fixed;
+}
+
+.content {
+    margin-top: 40px;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-element {
+    padding: 0px 10px;
 }
