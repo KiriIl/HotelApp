@@ -10,5 +10,11 @@ namespace HotelBooking.WebApplication.PL.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public IActionResult NewApartment(ApartmentViewModel viewModel)
+        {
+
+        }
     }
 }
