@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelBooking.WebApplication.PL.Models.ValidationAttributes
 {
@@ -13,7 +14,8 @@ namespace HotelBooking.WebApplication.PL.Models.ValidationAttributes
 
         public override bool IsValid(object value)
         {
-            return (int)value >= _minValue;
+            var intVal = Convert.ToInt32(value);
+            return intVal >= _minValue;
         }
     }
 }

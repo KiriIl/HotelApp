@@ -13,6 +13,9 @@ namespace HotelBooking.WebApplication.PL.Automapper
             CreateMap<User, UserDataModel>().ReverseMap();
             CreateMap<UserDTO, UserDataModel>().ReverseMap();
             CreateMap<UserDTO, RegistrationViewModel>().ReverseMap();
+            CreateMap<Apartment, ApartmentDataModel>().ReverseMap();
+            CreateMap<ApartmentDTO, ApartmentDataModel>().ReverseMap();
+            CreateMap<ApartmentDTO, ApartmentViewModel>().ReverseMap();
         }
     }
 }

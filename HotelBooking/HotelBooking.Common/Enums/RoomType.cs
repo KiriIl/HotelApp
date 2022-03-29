@@ -2,7 +2,7 @@
 {
     public enum RoomType
     {
-        bussiness = 0,
-        economy = 1,
+        Bussiness = 0,
+        Economy = 1,
     }
 }
