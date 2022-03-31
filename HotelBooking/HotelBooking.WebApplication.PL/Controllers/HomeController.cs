@@ -1,11 +1,26 @@
-﻿using HotelBooking.WebApplication.PL.Models;
+﻿using AutoMapper;
+using HotelBooking.BLL.DTOModels;
+using HotelBooking.BLL.Services.IServices;
+using HotelBooking.WebApplication.PL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace HotelBooking.WebApplication.PL.Controllers
 {
     public class HomeController : Controller
     {
+        private IMapper _mapper;
+        private IBookingService _bookingService;
+
+        public HomeController(
+            IMapper mapper,
+            IBookingService bookingService)
+        {
+            _mapper = mapper;
+            _bookingService = bookingService;
+        }
+
         [AllowAnonymous]
         public IActionResult Index()
         {
@@ -27,6 +42,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
             if (ModelState.IsValid)
             {
                 //find current user
+                _bookingService.BookingApartment(_mapper.Map<BookingDTO>(viewModel));
             }
 
             return View();

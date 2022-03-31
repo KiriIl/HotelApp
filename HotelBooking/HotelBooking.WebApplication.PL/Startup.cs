@@ -43,6 +43,15 @@ namespace HotelBooking.WebApplication.PL
                     x.GetService<IUserRepository>(),
                     x.GetService<IMapper>()));
 
+            services.AddScoped<IBookingRepository>(
+                x => new BookingRepository(
+                    x.GetService<HotelBookingDbContext>(),
+                    x.GetService<IMapper>()));
+            services.AddScoped<IBookingService>(
+                x => new BookingService(
+                    x.GetService<IMapper>(),
+                    x.GetService<IBookingRepository>()));
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
