@@ -43,7 +43,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
                 {
                     _userService.SaveUser(_mapper.Map<UserDTO>(viewModel));
 
-                    await HttpContext.SignInAsync(_userService.GetPrincipal(viewModel.Login, nameof(viewModel.Role)));
+                    await HttpContext.SignInAsync(_userService.GetPrincipal(viewModel.Login, viewModel.Role.ToString()));
 
                     return RedirectToAction("Index", "Home");
                 }
