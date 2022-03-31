@@ -26,14 +26,14 @@ namespace HotelBooking.WebApplication.PL.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult CreateApartment()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public IActionResult CreateApartment(ApartmentViewModel viewModel)
         {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HotelBooking.Common.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelBooking.WebApplication.PL.Models
 {
@@ -13,5 +14,6 @@ namespace HotelBooking.WebApplication.PL.Models
         public string PasswordConfirm { get; set; }
         [Required]
         public string Name { get; set; }
+        public Role Role { get; set; }
     }
 }
