@@ -4,10 +4,10 @@ using HotelBooking.BLL.Services.IServices;
 using HotelBooking.WebApplication.PL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace HotelBooking.WebApplication.PL.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private IMapper _mapper;
@@ -53,7 +53,6 @@ namespace HotelBooking.WebApplication.PL.Controllers
             return View();
         }
         
-        [Authorize]
         [HttpGet]
         public IActionResult BookingApartment(long id)
         {
@@ -61,7 +60,6 @@ namespace HotelBooking.WebApplication.PL.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult BookingApartment(BookingApartmentViewModel viewModel)
         {
