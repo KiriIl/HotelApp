@@ -8,16 +8,16 @@ namespace HotelBooking.DAL.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Apartment> Apartments { get; set; }
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<Booking> Booking { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasMany(user => user.Orders)
+                .HasMany(user => user.Booking)
                 .WithOne(order => order.User);
 
             modelBuilder.Entity<Apartment>()
-                .HasMany(apartment => apartment.Orders)
+                .HasMany(apartment => apartment.Booking)
                 .WithOne(order => order.Apartment);
 
             base.OnModelCreating(modelBuilder);
