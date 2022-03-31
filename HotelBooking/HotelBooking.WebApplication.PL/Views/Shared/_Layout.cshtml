@@ -25,20 +25,25 @@
                 </div>
             </div>
             <div class="user-info">
-                @* if authorized *@
-                <div class="icon notification">
+                @if (User.Identity.IsAuthenticated)
+                {
 
-                </div>
-                <div class="profile">
+                    <div class="icon notification">
 
-                </div>
-                <div class="logout">
+                    </div>
+                    <div class="profile">
 
-                </div>
-                @* if not authorized *@
-                <div class="login">
-                    <a href="/User/Login">Login</a>
-                </div>
+                    </div>
+                    <div class="logout">
+
+                    </div>
+                }
+                else
+                {
+                    <div class="login">
+                        <a href="/User/Login">Login</a>
+                    </div>
+                }
             </div>
         </div>
     </div>
