@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HotelBooking.BLL.DTOModels;
 using HotelBooking.BLL.Services.IServices;
+using HotelBooking.Common.Enums;
 using HotelBooking.DAL.DataModels;
 using HotelBooking.DAL.Models;
 using HotelBooking.DAL.Repositories.IRepositories;
@@ -24,11 +25,12 @@ namespace HotelBooking.BLL.Services
             _mapper = mapper;
         }
 
-        public ClaimsPrincipal GetPrincipal(string login)
+        public ClaimsPrincipal GetPrincipal(string login, string role)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, login)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, login),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, role)
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(
@@ -55,6 +57,11 @@ namespace HotelBooking.BLL.Services
         public bool CheckUserLogin(string login, string password)
         {
             return _userRepository.CheckUserLogin(login, password);
+        }
+
+        public Role GetUserRole(string login)
+        {
+            return _userRepository.GetUserRole(login);
         }
     }
 }

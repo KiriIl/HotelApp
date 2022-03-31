@@ -11,13 +11,16 @@ namespace HotelBooking.WebApplication.PL.Controllers
     public class HomeController : Controller
     {
         private IMapper _mapper;
+        private IApartmentService _apartmentService;
         private IBookingService _bookingService;
 
         public HomeController(
             IMapper mapper,
+            IApartmentService apartmentService,
             IBookingService bookingService)
         {
             _mapper = mapper;
+            _apartmentService = apartmentService;
             _bookingService = bookingService;
         }
 
@@ -27,6 +30,29 @@ namespace HotelBooking.WebApplication.PL.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult CreateApartment()
+        {
+            return View();
+        }
+
+        [Authorize(Roles ="Admin")]
+        [HttpPost]
+        public IActionResult CreateApartment(ApartmentViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var apartmentDTO = _mapper.Map<ApartmentDTO>(viewModel);
+
+                _apartmentService.CreateApartment(apartmentDTO);
+
+                return RedirectToAction("Index");
+            }
+            
+            return View();
+        }
+        
         [Authorize]
         [HttpGet]
         public IActionResult BookingApartment(long id)

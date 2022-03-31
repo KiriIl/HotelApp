@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HotelBooking.Common.Enums;
 using HotelBooking.DAL.DataModels;
 using HotelBooking.DAL.Models;
 using HotelBooking.DAL.Repositories.IRepositories;
@@ -24,6 +25,11 @@ namespace HotelBooking.DAL.Repositories
         public bool CheckUserLogin(string login, string password)
         {
             return dbSet.Any(x => x.Login == login && x.Password == password);
+        }
+
+        public Role GetUserRole(string login)
+        {
+            return Get(login).Role;
         }
     }
 }
