@@ -4,6 +4,7 @@ using HotelBooking.BLL.Services.IServices;
 using HotelBooking.WebApplication.PL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace HotelBooking.WebApplication.PL.Controllers
 {
@@ -11,16 +12,19 @@ namespace HotelBooking.WebApplication.PL.Controllers
     {
         private IMapper _mapper;
         private IApartmentService _apartmentService;
+        private IBookingService _bookingService;
 
         public HomeController(
             IMapper mapper,
-            IApartmentService apartmentService)
+            IApartmentService apartmentService,
+            IBookingService bookingService)
         {
             _mapper = mapper;
             _apartmentService = apartmentService;
+            _bookingService = bookingService;
         }
 
-        [Authorize]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
@@ -44,6 +48,27 @@ namespace HotelBooking.WebApplication.PL.Controllers
                 _apartmentService.CreateApartment(apartmentDTO);
 
                 return RedirectToAction("Index");
+            }
+            
+            return View();
+        }
+        
+        [Authorize]
+        [HttpGet]
+        public IActionResult BookingApartment(long id)
+        {
+            var viewModel = new BookingApartmentViewModel() { IdApartment = id };
+            return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult BookingApartment(BookingApartmentViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //find current user
+                _bookingService.BookingApartment(_mapper.Map<BookingDTO>(viewModel));
             }
 
             return View();

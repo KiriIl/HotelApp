@@ -2,7 +2,7 @@
 
 namespace HotelBooking.DAL.DataModels
 {
-    public class OrderDataModel
+    public class BookingDataModel
     {
         public long Id { get; set; }
         public UserDataModel User { get; set; }
