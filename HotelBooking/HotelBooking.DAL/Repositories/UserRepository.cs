@@ -17,6 +17,20 @@ namespace HotelBooking.DAL.Repositories
             _mapper = mapper;
         }
 
+        public override User Get(long id)
+        {
+            var user = dbSet.Select(x => new User
+            {
+                Id = x.Id,
+                Login = x.Login,
+                Name = x.Name,
+                Password = x.Password,
+                Role = x.Role,
+            }).SingleOrDefault();
+
+            return user;
+        }
+
         public UserDataModel Get(string login)
         {
             return _mapper.Map<UserDataModel>(dbSet.SingleOrDefault(x => x.Login == login));

@@ -1,10 +1,14 @@
 ﻿using HotelBooking.DAL.DataModels;
 using HotelBooking.DAL.Models;
+using System;
+using System.Collections.Generic;
 
 namespace HotelBooking.DAL.Repositories.IRepositories
 {
     public interface IBookingRepository : IBaseRepository<Booking>
     {
-        public void Save(BookingDataModel bookingDataModel);
+        void Save(BookingDataModel bookingDataModel);
+        bool IsEmpty(long apartmentId, DateTime arrivalDate, DateTime departureDate);
+        public List<BookingDataModel> GetReservationsByApartmentId(long apartmentId);
     }
 }

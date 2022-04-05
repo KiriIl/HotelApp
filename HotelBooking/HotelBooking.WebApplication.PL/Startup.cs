@@ -40,7 +40,8 @@ namespace HotelBooking.WebApplication.PL
                     x.GetService<IMapper>()));
             services.AddScoped<IApartmentRepository>(
                 x=>new ApartmentRepository(
-                    x.GetService<HotelBookingDbContext>()));
+                    x.GetService<HotelBookingDbContext>(),
+                    x.GetService<IMapper>()));
 
             services.AddScoped<IUserService>(
                 x => new UserService(

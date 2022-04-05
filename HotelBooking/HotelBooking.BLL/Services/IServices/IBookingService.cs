@@ -4,6 +4,6 @@ namespace HotelBooking.BLL.Services.IServices
 {
     public interface IBookingService
     {
-        public void BookingApartment(BookingDTO booking);
+        public bool BookingApartment(BookingDTO booking);
     }
 }

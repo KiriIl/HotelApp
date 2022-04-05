@@ -11,5 +11,6 @@ namespace HotelBooking.BLL.Services.IServices
         void SaveUser(UserDTO user);
         bool CheckUserLogin(string login, string password);
         Role GetUserRole(string login);
+        UserDTO GetUserInfo(string login);
     }
 }

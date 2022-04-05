@@ -4,14 +4,16 @@ using HotelBooking.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotelBooking.DAL.Migrations
 {
     [DbContext(typeof(HotelBookingDbContext))]
-    partial class HotelBookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220404182617_AddedForeignKeyInModels")]
+    partial class AddedForeignKeyInModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

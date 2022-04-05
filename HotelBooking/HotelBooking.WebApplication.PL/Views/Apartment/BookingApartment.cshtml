@@ -6,9 +6,22 @@
 <div>
     <form action="BookingApartment" method="post">
         <div>
-            @Html.HiddenFor(x=>x.IdApartment)
+            @Html.HiddenFor(x=>x.Apartment.Id)
         </div>
-        @* display info in BookingApartmentViewModel.ApartmentViewModel *@
+        <div>
+            <div>
+                @Html.HiddenFor(x=>x.Apartment.RoomsCount)
+            </div>
+            <div>
+                @Html.HiddenFor(x=>x.Apartment.Cost)
+            </div>
+            <div>
+                @Html.HiddenFor(x=>x.Apartment.RoomType)
+            </div>
+            <div>
+                @Html.HiddenFor(x=>x.Apartment.Info)
+            </div>
+        </div>
         <div>
             @Html.DisplayNameFor(x => x.ArrivalDate)
             @Html.TextBoxFor(x => x.ArrivalDate, new { @type = "date" })

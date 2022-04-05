@@ -14,18 +14,20 @@ namespace HotelBooking.DAL.Models
         {
             modelBuilder.Entity<User>()
                 .HasMany(user => user.Booking)
-                .WithOne(order => order.User);
+                .WithOne(booking => booking.User)
+                .HasForeignKey(x => x.UserId);
 
             modelBuilder.Entity<Apartment>()
                 .HasMany(apartment => apartment.Booking)
-                .WithOne(order => order.Apartment);
+                .WithOne(booking => booking.Apartment)
+                .HasForeignKey(x=>x.ApartmentId);
 
             base.OnModelCreating(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLazyLoadingProxies();
+            optionsBuilder.EnableSensitiveDataLogging();
             base.OnConfiguring(optionsBuilder);
         }
     }
