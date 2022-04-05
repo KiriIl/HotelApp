@@ -5,6 +5,6 @@ namespace HotelBooking.DAL.Repositories.IRepositories
 {
     public interface IBookingRepository : IBaseRepository<Booking>
     {
-        public void Save(BookingDataModel bookingDataModel);
+        void Save(BookingDataModel bookingDataModel);
     }
 }

@@ -8,6 +8,7 @@ namespace HotelBooking.DAL.Repositories
     public class BookingRepository : BaseRepository<Booking>, IBookingRepository
     {
         private IMapper _mapper;
+
         public BookingRepository(
             HotelBookingDbContext context,
             IMapper mapper) : base(context) 
