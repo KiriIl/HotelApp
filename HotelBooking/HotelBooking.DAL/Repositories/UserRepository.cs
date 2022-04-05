@@ -12,7 +12,7 @@ namespace HotelBooking.DAL.Repositories
         private IMapper _mapper;
         public UserRepository(
             HotelBookingDbContext context,
-            IMapper mapper) : base(context) 
+            IMapper mapper) : base(context)
         {
             _mapper = mapper;
         }
@@ -26,7 +26,7 @@ namespace HotelBooking.DAL.Repositories
                 Name = x.Name,
                 Password = x.Password,
                 Role = x.Role,
-            }).SingleOrDefault();
+            }).SingleOrDefault(x => x.Id == id);
 
             return user;
         }

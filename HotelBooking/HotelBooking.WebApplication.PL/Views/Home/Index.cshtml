@@ -1,7 +1,32 @@
-﻿@{
+﻿@model List<ApartmentInfoViewModel>
+@{
     Layout = "_Layout";
 }
 
-<div>
-    @*html soon*@
+<div class="apartments-gallery">
+    @foreach (var apartment in Model)
+    {
+        <div class="apartment-element">
+            <div>
+                @Html.DisplayNameFor(x => x.First().RoomsCount)
+                @apartment.RoomsCount
+            </div>
+            <div>
+                @Html.DisplayNameFor(x => x.First().RoomType)
+                @apartment.RoomType
+            </div>
+            <div>
+                @Html.DisplayNameFor(x => x.First().Cost)
+                @apartment.Cost
+            </div>
+            <div class="interaction-buttons">
+                <div class="nav-element">
+                    edit
+                </div>
+                <div class="nav-element">
+                    <a href="/Apartment/BookingApartment?id=@apartment.Id">Booking</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>

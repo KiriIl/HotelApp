@@ -24,7 +24,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
         public IActionResult Index()
         {
             var aparts = _mapper.Map<List<ApartmentInfoViewModel>>(_apartmentService.GetAllApartments());
-            return Json(aparts);
+            return View(aparts);
         }
     }
 }

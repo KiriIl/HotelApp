@@ -3,6 +3,7 @@ using HotelBooking.BLL.DTOModels;
 using HotelBooking.BLL.Services.IServices;
 using HotelBooking.WebApplication.PL.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -74,6 +75,12 @@ namespace HotelBooking.WebApplication.PL.Controllers
             }
 
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

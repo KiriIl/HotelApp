@@ -44,3 +44,16 @@
 .nav-element {
     padding: 0px 10px;
 }
+
+.apartments-gallery {
+    display: flex;
+}
+
+.apartment-element {
+    margin: 5px;
+}
+
+.interaction-buttons {
+    display: flex;
+    flex-direction: row;
+}

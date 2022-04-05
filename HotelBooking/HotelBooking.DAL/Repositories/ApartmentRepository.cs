@@ -26,7 +26,7 @@ namespace HotelBooking.DAL.Repositories
                 Info = x.Info,
                 RoomsCount = x.RoomsCount,
                 RoomType = x.RoomType,
-            }).SingleOrDefault();
+            }).SingleOrDefault(x => x.Id == id);
 
             return apartment;
         }
