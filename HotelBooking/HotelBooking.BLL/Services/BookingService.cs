@@ -22,8 +22,6 @@ namespace HotelBooking.BLL.Services
         }
         public bool BookingApartment(BookingDTO booking)
         {
-            booking.ArrivalDate = booking.ArrivalDate.AddHours(9);
-            booking.DepartureDate = booking.DepartureDate.AddHours(6);
             var reservsOnApart = _bookingRepository.GetReservationsByApartmentId(booking.Apartment.Id);
             DateTime arrivalDate = booking.ArrivalDate;
             DateTime departureDate = booking.DepartureDate;

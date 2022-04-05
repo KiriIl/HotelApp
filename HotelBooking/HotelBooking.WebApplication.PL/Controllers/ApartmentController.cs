@@ -65,6 +65,9 @@ namespace HotelBooking.WebApplication.PL.Controllers
         {
             if (ModelState.IsValid)
             {
+                viewModel.ArrivalDate = viewModel.ArrivalDate.AddHours(9);
+                viewModel.DepartureDate = viewModel.DepartureDate.AddHours(6);
+
                 var login = User.Claims.SingleOrDefault(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;
                 viewModel.User = _mapper.Map<UserInfoViewModel>(_userService.GetUserInfo(login));
                 bool success = _bookingService.BookingApartment(_mapper.Map<BookingDTO>(viewModel));
