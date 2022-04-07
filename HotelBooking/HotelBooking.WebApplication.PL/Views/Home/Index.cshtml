@@ -3,30 +3,54 @@
     Layout = "_Layout";
 }
 
-<div class="apartments-gallery">
-    @foreach (var apartment in Model)
-    {
-        <div class="apartment-element">
-            <div>
-                @Html.DisplayNameFor(x => x.First().RoomsCount)
-                @apartment.RoomsCount
-            </div>
-            <div>
-                @Html.DisplayNameFor(x => x.First().RoomType)
-                @apartment.RoomType
-            </div>
-            <div>
-                @Html.DisplayNameFor(x => x.First().Cost)
-                @apartment.Cost
-            </div>
-            <div class="interaction-buttons">
-                <div class="nav-element">
-                    edit
+<div style="display:flex; flex-direction:row;">
+    <div class="side">
+    </div>
+    <div class="apartments-gallery">
+        @foreach (var apartment in Model)
+        {
+            <div class="apartment-element">
+                <div>
+                    @if (string.IsNullOrEmpty(apartment.Info))
+                    {
+                        <h6>
+                            No info about this apartment
+                        </h6>
+                    }
+                    else
+                    {
+                        <h6>
+                            @apartment.Info
+                        </h6>
+                    }
                 </div>
-                <div class="nav-element">
-                    <a href="/Apartment/BookingApartment?id=@apartment.Id">Booking</a>
+                <div class="apartment-info">
+                    <div class="apartment-info-element">
+                        @Html.DisplayNameFor(x => x.First().RoomsCount)
+                        @apartment.RoomsCount,
+                    </div>
+                    <div class="apartment-info-element">
+                        @Html.DisplayNameFor(x => x.First().RoomType)
+                        @apartment.RoomType,
+                    </div>
+                    <div class="apartment-info-element">
+                        @Html.DisplayNameFor(x => x.First().Cost)
+                        @apartment.Cost
+                    </div>
+                </div>
+                <div class="interaction-buttons">
+                    <div class="interaction-buttons-inner">
+                        <a class="no-decoration" href="/Apartment/EditApartment?id=@apartment.Id">
+                            <button class="btn btn-info">Edit</button>
+                        </a>
+                        <a class="no-decoration" href="/Apartment/BookingApartment?id=@apartment.Id">
+                            <button class="btn btn-primary">Booking</button>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
+    <div class="side">
+    </div>
 </div>

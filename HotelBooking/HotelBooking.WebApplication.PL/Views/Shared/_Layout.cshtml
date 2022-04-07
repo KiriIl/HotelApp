@@ -23,29 +23,31 @@
         <div class="info">
             <div class="navigation">
                 <div class="nav-element">
-                    <a href="/Apartment/CreateApartment">Add apartment</a>
+                    <a class="no-decoration" href="/Apartment/CreateApartment">Add apartment</a>
                 </div>
                 <div class="nav-element">
-                    <a href="/Home/Index">Apartments</a>
+                    <a class="no-decoration" href="/Home/Index">Apartments</a>
                 </div>
             </div>
             <div class="user-info">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <div class="icon notification">
-
+                    <div class="icon notification position-relative nav-element">
+                        <span class="position-absolute top-100 translate-middle badge rounded-pill bg-danger" style="font-size:8px;">
+                            1+
+                        </span>
                     </div>
-                    <div class="profile">
-
+                    <div class="profile nav-element">
+                        <a class="no-decoration" href="/User/Profile">Profile</a>
                     </div>
-                    <div class="logout">
-                        <a href="/User/Logout">Logout</a>
+                    <div class="logout nav-element">
+                        <a class="no-decoration" href="/User/Logout">Logout</a>
                     </div>
                 }
                 else
                 {
-                    <div class="login">
-                        <a href="/User/Login">Login</a>
+                    <div class="login nav-element">
+                        <a class="no-decoration" href="/User/Login">Login</a>
                     </div>
                 }
             </div>
