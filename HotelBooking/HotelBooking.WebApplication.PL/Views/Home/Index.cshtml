@@ -40,12 +40,11 @@
                 </div>
                 <div class="interaction-buttons">
                     <div class="interaction-buttons-inner">
-                        <a class="no-decoration" href="/Apartment/EditApartment?id=@apartment.Id">
-                            <button class="btn btn-info">Edit</button>
-                        </a>
-                        <a class="no-decoration" href="/Apartment/BookingApartment?id=@apartment.Id">
-                            <button class="btn btn-primary">Booking</button>
-                        </a>
+                        @if (User?.Claims?.SingleOrDefault(x => x.Type == ClaimsIdentity.DefaultRoleClaimType)?.Value == "Admin")
+                        {
+                            <button class="btn btn-info" onclick="document.location='Apartment/EditApartment?id=@apartment.Id'">Edit</button>
+                        }
+                        <button class="btn btn-primary" onclick="document.location='/Apartment/BookingApartment?id=@apartment.Id'">Booking</button>
                     </div>
                 </div>
             </div>
