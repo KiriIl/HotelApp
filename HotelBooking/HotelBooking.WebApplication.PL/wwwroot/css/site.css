@@ -86,3 +86,24 @@
 .side {
     flex: 2;
 }
+
+.notification-popup {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    background-color: #ababab;
+    right: 0px;
+    top: 30px;
+    overflow: auto;
+}
+
+.notification-element {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.notification-content {
+    padding: 10px 20px;
+}
