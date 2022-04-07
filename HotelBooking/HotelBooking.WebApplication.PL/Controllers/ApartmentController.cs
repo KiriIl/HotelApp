@@ -63,6 +63,18 @@ namespace HotelBooking.WebApplication.PL.Controllers
         [HttpPost]
         public IActionResult BookingApartment(BookingApartmentViewModel viewModel)
         {
+            if (viewModel.DepartureDate < viewModel.ArrivalDate)
+            {
+                ModelState.AddModelError("DepartureDate", "Wrong input");
+                return View();
+            }
+            else if(viewModel.DepartureDate == viewModel.ArrivalDate)
+            {
+                ModelState.AddModelError("ArrivalDate", "Can not be a same day");
+                ModelState.AddModelError("DepartureDate", "Can not be a same day");
+                return View();
+            }
+
             if (ModelState.IsValid)
             {
                 viewModel.ArrivalDate = viewModel.ArrivalDate.AddHours(9);
