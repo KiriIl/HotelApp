@@ -52,7 +52,7 @@ namespace HotelBooking.Test.Service
         [TestCase("2022-03-30 9:00:00", "2022-04-01 6:00:00")]
         [TestCase("2022-04-08 9:00:00", "2022-04-15 6:00:00")]
         [TestCase("2022-04-22 9:00:00", "2022-04-27 6:00:00")]
-        public void ApartmentIsEmpty(DateTime arrivalDate, DateTime departureDate)
+        public void ApartmentIsEmpty_ReturnFalse(DateTime arrivalDate, DateTime departureDate)
         {
             var bookingDTO = new BookingDTO
             {
@@ -74,9 +74,9 @@ namespace HotelBooking.Test.Service
 
             _mockMapper.Setup(x => x.Map<BookingDataModel>(bookingDTO)).Returns(bookingDataModel);
 
-            _bookingService.BookingApartment(bookingDTO);
+            var result = _bookingService.BookingApartment(bookingDTO);
 
-            _mockRepository.Verify(x => x.Save(bookingDataModel), Times.Once);
+            Assert.AreEqual(result, false);
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace HotelBooking.Test.Service
         [TestCase("2022-04-02 9:00:00", "2022-04-05 6:00:00")]
         [TestCase("2022-04-14 9:00:00", "2022-04-23 6:00:00")]
         [TestCase("2022-04-15 9:00:00", "2022-04-22 6:00:00")]
-        public void ApartmentIsNotEmty(DateTime arrivalDate, DateTime departureDate)
+        public void ApartmentIsNotEmty_ReturnsTrue(DateTime arrivalDate, DateTime departureDate)
         {
             var bookingDTO = new BookingDTO
             {
@@ -109,9 +109,9 @@ namespace HotelBooking.Test.Service
 
             _mockMapper.Setup(x => x.Map<BookingDataModel>(bookingDTO)).Returns(bookingDataModel);
 
-            _bookingService.BookingApartment(bookingDTO);
+            var result = _bookingService.BookingApartment(bookingDTO);
 
-            _mockRepository.Verify(x => x.Save(bookingDataModel), Times.Never);
+            Assert.AreEqual(result, true);
         }
     }
 }
