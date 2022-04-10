@@ -61,6 +61,13 @@ namespace HotelBooking.WebApplication.PL
                     x.GetService<IMapper>(),
                     x.GetService<IBookingRepository>()));
 
+            services.AddScoped<INotificationRepository>(
+                x => new NotificationRepository(
+                    x.GetService<HotelBookingDbContext>()));
+            services.AddScoped<INotificationService>(
+                x => new NotificationService(
+                    x.GetService<IMapper>(),
+                    x.GetService<INotificationRepository>()));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

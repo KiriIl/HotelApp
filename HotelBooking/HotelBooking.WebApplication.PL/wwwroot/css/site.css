@@ -4,7 +4,7 @@
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .top {
@@ -107,3 +107,8 @@
 .notification-content {
     padding: 10px 20px;
 }
+
+.notify-counter {
+    font-size: 8px;
+}
+

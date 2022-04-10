@@ -4,7 +4,11 @@ using HotelBooking.BLL.Services.IServices;
 using HotelBooking.WebApplication.PL.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace HotelBooking.WebApplication.PL.Controllers
@@ -13,13 +17,16 @@ namespace HotelBooking.WebApplication.PL.Controllers
     {
         private IMapper _mapper;
         private IUserService _userService;
+        private INotificationService _notificationService;
 
         public UserController(
+            IMapper mapper,
             IUserService userService,
-            IMapper mapper)
+            INotificationService notificationService)
         {
-            _userService = userService;
             _mapper = mapper;
+            _userService = userService;
+            _notificationService = notificationService;
         }
 
         public IActionResult Index()
@@ -81,6 +88,16 @@ namespace HotelBooking.WebApplication.PL.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetNotifications()
+        {
+            var login = User.Claims.SingleOrDefault(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;
+            var userId = _mapper.Map<UserInfoViewModel>(_userService.GetUserInfo(login)).Id;
+            var list = _mapper.Map<List<NotificationViewModel>>(_notificationService.GetNotificationsByUserId(userId));
+            return Json(list);
         }
     }
 }

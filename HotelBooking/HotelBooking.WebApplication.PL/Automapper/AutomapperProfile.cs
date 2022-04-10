@@ -21,6 +21,9 @@ namespace HotelBooking.WebApplication.PL.Automapper
             CreateMap<BookingApartmentViewModel, BookingDTO>().ReverseMap();
             CreateMap<BookingDataModel, BookingDTO>().ReverseMap();
             CreateMap<BookingDataModel, Booking>().ReverseMap();
+            CreateMap<Notification, NotificationDataModel>().ReverseMap();
+            CreateMap<NotificationDataModel, NotificationDTO>().ReverseMap();
+            CreateMap<NotificationDTO, NotificationViewModel>().ReverseMap();
         }
     }
 }
