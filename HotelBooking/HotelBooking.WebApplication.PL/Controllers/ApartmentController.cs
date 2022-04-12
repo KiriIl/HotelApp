@@ -53,9 +53,9 @@ namespace HotelBooking.WebApplication.PL.Controllers
         }
 
         [HttpGet]
-        public IActionResult BookingApartment(long id)
+        public IActionResult BookingApartment(long apartmentId)
         {
-            var apartmentViewModel = _mapper.Map<ApartmentInfoViewModel>(_apartmentService.Get(id));
+            var apartmentViewModel = _mapper.Map<ApartmentInfoViewModel>(_apartmentService.Get(apartmentId));
             var viewModel = new BookingApartmentViewModel() { Apartment = apartmentViewModel };
             return View(viewModel);
         }

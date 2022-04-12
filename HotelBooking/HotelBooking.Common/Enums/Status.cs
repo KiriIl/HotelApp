@@ -2,7 +2,8 @@
 {
     public enum Status
     {
-        Unchecked = 0,
-        Checked = 1,
+        Awaiting = 0,
+        Unchecked = 1,
+        Checked = 2,
     }
 }

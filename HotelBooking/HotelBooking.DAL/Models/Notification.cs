@@ -6,6 +6,7 @@ namespace HotelBooking.DAL.Models
     {
         public string Message { get; set; }
         public Status Status { get; set; }
+        public NotificationType NotificationType { get; set; }
         public User User { get; set; }
         public long UserId { get; set; }
         public Apartment Apartment { get; set; }

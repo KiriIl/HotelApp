@@ -40,12 +40,9 @@
                 </div>
                 <div class="interaction-buttons">
                     <div class="interaction-buttons-inner">
-                        <a class="no-decoration" href="/Apartment/EditApartment?id=@apartment.Id">
-                            <button class="btn btn-info">Edit</button>
-                        </a>
-                        <a class="no-decoration" href="/Apartment/BookingApartment?id=@apartment.Id">
-                            <button class="btn btn-primary">Booking</button>
-                        </a>
+                        <button class="btn btn-primary" onclick="document.location='/Apartment/BookingApartment?apartmentId=@apartment.Id'">Booking</button>
+                        <button class="btn btn-primary" onclick="document.location='/User/NotifyWhenFree?apartmentId=@apartment.Id'">Notify</button>
+                        <button class="btn btn-info" onclick="document.location='/Apartment/EditApartment?id=@apartment.Id'">Edit</button>
                     </div>
                 </div>
             </div>

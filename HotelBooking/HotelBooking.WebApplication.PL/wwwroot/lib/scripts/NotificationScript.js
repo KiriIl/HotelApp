@@ -1,5 +1,10 @@
 ﻿$(document).ready(function () {
 
+    $.get(`/User/UpdateNotifications`);
+
+    const unchecked = 1;
+    const checked = 2;
+
     var counter = 0;
     getNotifications();
     setInterval(getNotifications, 100000);
@@ -15,7 +20,7 @@
             .done(function (data) {
                 counter = 0;
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].status == 0) {
+                    if (data[i].status == 1) {
                         counter++;
                     }
 
@@ -50,11 +55,12 @@
 
     function updateStatus(context) {
         var block = $(context).find('.notification-status');
-        if (block.html().trim() == '0') {
-            block.empty().append('1');
+        if (block.html().trim() == unchecked) {
+            var id = $(context).find('.notification-id').html().trim();
+            block.empty().append(checked);
             counter--;
             updateCounter();
-            //request to db, change notify status to checked
+            $.get(`/User/ChangeNotificationStatus?notificationId=${id}&status=${checked}`);
         }
     }
 });

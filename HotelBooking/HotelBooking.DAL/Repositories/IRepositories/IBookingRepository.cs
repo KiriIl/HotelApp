@@ -8,7 +8,7 @@ namespace HotelBooking.DAL.Repositories.IRepositories
     public interface IBookingRepository : IBaseRepository<Booking>
     {
         void Save(BookingDataModel bookingDataModel);
-        bool IsEmpty(long apartmentId, DateTime arrivalDate, DateTime departureDate);
         public List<BookingDataModel> GetReservationsByApartmentId(long apartmentId);
+        bool IsOccupiedOnDate(long apartmentId, DateTime date);
     }
 }
