@@ -11,5 +11,6 @@ namespace HotelBooking.WebApplication.PL.Models
         public DateTime ArrivalDate { get; set; }
         [Required]
         public DateTime DepartureDate { get; set; }
+        public bool NotifyOnEndDate { get; set; }
     }
 }

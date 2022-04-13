@@ -87,7 +87,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
                 if (!success)
                 {
                     ModelState.AddModelError("ArrivalDate", "Some dates are occupied");
-                    return View();
+                    return View(viewModel);
                 }
             }
 
