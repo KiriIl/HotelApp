@@ -17,11 +17,14 @@ namespace HotelBooking.BLL.Services
 
         public BookingService(
             IMapper mapper,
-            IBookingRepository bookingRepository)
+            IBookingRepository bookingRepository,
+            INotificationRepository notificationRepository)
         {
             _mapper = mapper;
             _bookingRepository = bookingRepository;
+            _notificationRepository = notificationRepository;
         }
+
         public bool BookingApartment(BookingDTO booking)
         {
             var reservsOnApart = _bookingRepository.GetReservationsByApartmentId(booking.Apartment.Id);

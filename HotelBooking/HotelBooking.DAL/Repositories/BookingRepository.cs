@@ -56,5 +56,15 @@ namespace HotelBooking.DAL.Repositories
 
             return result.Any();
         }
+
+        public bool IsEndOfRentBooking(long apartmentId, long userId, DateTime currentDate, DateTime nextDate)
+        {
+            var result = (from booking in context.Booking
+                          where (booking.ApartmentId == apartmentId && booking.UserId == userId) &&
+                          (currentDate < booking.DepartureDate && nextDate > booking.DepartureDate)
+                          select booking);
+
+            return result.Any();
+        }
     }
 }

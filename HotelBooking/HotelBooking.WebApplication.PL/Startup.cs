@@ -59,7 +59,8 @@ namespace HotelBooking.WebApplication.PL
             services.AddScoped<IBookingService>(
                 x => new BookingService(
                     x.GetService<IMapper>(),
-                    x.GetService<IBookingRepository>()));
+                    x.GetService<IBookingRepository>(),
+                    x.GetService<INotificationRepository>()));
 
             services.AddScoped<INotificationRepository>(
                 x => new NotificationRepository(
