@@ -5,5 +5,6 @@ namespace HotelBooking.BLL.Services.IServices
     public interface IBookingService
     {
         bool BookingApartment(BookingDTO booking);
+        void DenyBooking(long bookingId);
     }
 }

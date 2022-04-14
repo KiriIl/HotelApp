@@ -70,6 +70,20 @@ namespace HotelBooking.BLL.Services
             return false;
         }
 
+        public void DenyBooking(long bookingId)
+        {
+            var model = _mapper.Map<BookingDTO>(_mapper.Map<BookingDataModel>(_bookingRepository.Get(bookingId)));
+            var currentDate = DateTime.UtcNow;
+            if (currentDate < model.ArrivalDate)
+            {
+                //delete
+            }
+            else
+            {
+                model.DepartureDate = SetDepartureDate(currentDate);
+            }
+        }
+
         private DateTime SetDepartureDate(DateTime departureDate)
         {
             return new DateTime(departureDate.Year, departureDate.Month, departureDate.Day, DEPARTURE_HOUR, 0, 0);

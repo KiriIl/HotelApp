@@ -67,13 +67,13 @@ namespace HotelBooking.WebApplication.PL.Controllers
             if (viewModel.DepartureDate < viewModel.ArrivalDate)
             {
                 ModelState.AddModelError("DepartureDate", TitleResource.ValidationMessageForBookingOnWrongInput);
-                return View();
+                return View(viewModel);
             }
             else if (viewModel.DepartureDate == viewModel.ArrivalDate)
             {
                 ModelState.AddModelError("ArrivalDate", TitleResource.ValidationMessageForBookingOnSameDates);
                 ModelState.AddModelError("DepartureDate", TitleResource.ValidationMessageForBookingOnSameDates);
-                return View();
+                return View(viewModel);
             }
 
             if (ModelState.IsValid)
@@ -98,6 +98,14 @@ namespace HotelBooking.WebApplication.PL.Controllers
         {
             var viewModel = _mapper.Map<ApartmentViewModel>(_apartmentService.Get(id));
             return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult DenyBooking(long bookingId)
+        {
+            _bookingService.DenyBooking(bookingId);
+            return View();
         }
     }
 }
