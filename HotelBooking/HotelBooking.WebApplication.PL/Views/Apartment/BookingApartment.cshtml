@@ -43,6 +43,11 @@
             @Html.TextBoxFor(x => x.DepartureDate, new { @type = "date" })
             @Html.ValidationMessageFor(x => x.DepartureDate)
         </div>
+        <div class="m-1">
+            @Html.DisplayNameFor(x => x.NotifyOnEndDate)
+            @Html.CheckBoxFor(x => x.NotifyOnEndDate)
+            @Html.ValidationMessageFor(x => x.NotifyOnEndDate)
+        </div>
         <div>
             <button type="submit" class="btn btn-primary">Ok</button>
         </div>

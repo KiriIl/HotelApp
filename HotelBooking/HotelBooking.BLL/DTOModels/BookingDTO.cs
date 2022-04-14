@@ -8,5 +8,7 @@ namespace HotelBooking.BLL.DTOModels
         public ApartmentDTO Apartment { get; set; }
         public DateTime ArrivalDate { get; set; }
         public DateTime DepartureDate { get; set; }
+        public bool NotifyOnEndDate { get; set; }
+
     }
 }

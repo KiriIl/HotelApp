@@ -47,21 +47,24 @@ namespace HotelBooking.DAL.Repositories
             return reservsOnApart;
         }
 
-        public bool IsEmpty(long apartmentId, DateTime arrivalDate, DateTime departureDate)
+        public bool IsOccupiedOnDate(long apartmentId, DateTime date)
         {
-            var reservsOnApart = GetReservationsByApartmentId(apartmentId);
+            var result = (from booking in context.Booking
+                          where booking.ApartmentId == apartmentId &&
+                          (booking.ArrivalDate < date && booking.DepartureDate > date)
+                          select booking);
 
-            var reservsInPeriod = (from table in reservsOnApart
-                                   where (table.ArrivalDate >= arrivalDate && table.ArrivalDate <= departureDate ||
-                                   table.DepartureDate >= arrivalDate && table.DepartureDate <= departureDate) ||
-                                   (table.ArrivalDate <= arrivalDate && table.ArrivalDate >= departureDate ||
-                                   table.DepartureDate <= arrivalDate && table.DepartureDate >= departureDate)
-                                   select table
-                );
+            return result.Any();
+        }
 
-            var temp = reservsInPeriod.ToList();
+        public bool IsEndOfRentBooking(long apartmentId, long userId, DateTime currentDate, DateTime nextDate)
+        {
+            var result = (from booking in context.Booking
+                          where (booking.ApartmentId == apartmentId && booking.UserId == userId) &&
+                          (currentDate < booking.DepartureDate && nextDate > booking.DepartureDate)
+                          select booking);
 
-            return !temp.Any();
+            return result.Any();
         }
     }
 }

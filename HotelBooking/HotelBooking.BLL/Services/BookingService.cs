@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HotelBooking.BLL.DTOModels;
 using HotelBooking.BLL.Services.IServices;
+using HotelBooking.Common.Enums;
 using HotelBooking.DAL.DataModels;
 using HotelBooking.DAL.Repositories.IRepositories;
 using System;
@@ -12,14 +13,18 @@ namespace HotelBooking.BLL.Services
     {
         private IMapper _mapper;
         private IBookingRepository _bookingRepository;
+        private INotificationRepository _notificationRepository;
 
         public BookingService(
             IMapper mapper,
-            IBookingRepository bookingRepository)
+            IBookingRepository bookingRepository,
+            INotificationRepository notificationRepository)
         {
             _mapper = mapper;
             _bookingRepository = bookingRepository;
+            _notificationRepository = notificationRepository;
         }
+
         public bool BookingApartment(BookingDTO booking)
         {
             var reservsOnApart = _bookingRepository.GetReservationsByApartmentId(booking.Apartment.Id);
@@ -38,10 +43,25 @@ namespace HotelBooking.BLL.Services
             if (!reservsInPeriod.Any())
             {
                 _bookingRepository.Save(_mapper.Map<BookingDataModel>(booking));
-                return false;
+
+                if (booking.NotifyOnEndDate)
+                {
+                    var notificationModel = new NotificationDataModel()
+                    {
+                        ApartmentId = booking.Apartment.Id,
+                        UserId = booking.User.Id,
+                        Status = Status.Awaiting,
+                        NotificationType = NotificationType.ForApartmentEndRent,
+                        Message = "Your rent is ending",
+                    };
+
+                    _notificationRepository.CreateNotification(notificationModel);
+                }
+
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }
