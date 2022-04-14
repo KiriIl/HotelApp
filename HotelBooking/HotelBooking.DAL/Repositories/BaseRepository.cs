@@ -18,7 +18,7 @@ namespace HotelBooking.DAL.Repositories
 
         public virtual T Get(long id)
         {
-            return dbSet.Find(id);
+            return dbSet.SingleOrDefault(x => x.Id == id);
         }
 
         public virtual void Save(T model)

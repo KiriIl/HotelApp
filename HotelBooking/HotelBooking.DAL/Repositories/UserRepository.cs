@@ -49,27 +49,27 @@ namespace HotelBooking.DAL.Repositories
 
         public UserDataModel GetProfileInfo(long userId)
         {
-            var userGroups = (from user in context.Users
-                              join booking in context.Booking on user.Id equals booking.UserId
-                              join apartment in context.Apartments on booking.ApartmentId equals apartment.Id
-                              where user.Id == userId
-                              select new UserDataModel
-                              {
-                                  Id = userId,
-                                  Booking = _mapper.Map<List<BookingDataModel>>(user.Booking.ToList()),
-                                  Login = user.Login,
-                                  Name = user.Name,
-                                  Role = user.Role,
-                              }).ToList()/*.SingleOrDefault()*/;
+            var userModel = (from user in context.Users
+                             where user.Id == userId
+                             select new UserDataModel
+                             {
+                                 Id = userId,
+                                 Booking = _mapper.Map<List<BookingDataModel>>(user.Booking.ToList()),
+                                 Login = user.Login,
+                                 Name = user.Name,
+                                 Role = user.Role,
+                             }).SingleOrDefault();
 
-            var userModel = userGroups.GroupBy(x => x.Id).Select(x => new UserDataModel()
-            {
-                Id = x.Key,
-                Booking = x.First().Booking,
-                Login = x.First().Login,
-                Name = x.First().Name,
-                Role = x.First().Role,
-            }).SingleOrDefault();
+            userModel.Booking = (from booking in context.Booking
+                                 join apartment in context.Apartments on booking.ApartmentId equals apartment.Id
+                                 where booking.UserId == userId
+                                 select new BookingDataModel
+                                 {
+                                     Id = userId,
+                                     Apartment = _mapper.Map<ApartmentDataModel>(booking.Apartment),
+                                     ArrivalDate = booking.ArrivalDate,
+                                     DepartureDate = booking.DepartureDate,
+                                 }).ToList();
 
             return userModel;
         }
