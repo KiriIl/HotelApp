@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -124,6 +125,26 @@ namespace HotelBooking.WebApplication.PL.Controllers
             var userId = GetUserId();
             _notificationService.UpdateNotifications(userId);
             return Ok();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            var userId = GetUserId();
+            var viewModel = _mapper.Map<UserProfileViewModel>(_userService.GetUserProfile(userId));
+            var currentTime = DateTime.UtcNow;
+            foreach (var x in viewModel.Booking)
+            {
+                if (x.DepartureDate > currentTime)
+                {
+                    x.Deniable = true;
+                }
+            }
+
+            viewModel.Booking = viewModel.Booking.OrderByDescending(x => x.ArrivalDate).ToList();
+
+            return View(viewModel);
         }
 
         private long GetUserId()

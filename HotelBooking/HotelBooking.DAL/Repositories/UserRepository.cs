@@ -3,6 +3,7 @@ using HotelBooking.Common.Enums;
 using HotelBooking.DAL.DataModels;
 using HotelBooking.DAL.Models;
 using HotelBooking.DAL.Repositories.IRepositories;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HotelBooking.DAL.Repositories
@@ -44,6 +45,33 @@ namespace HotelBooking.DAL.Repositories
         public Role GetUserRole(string login)
         {
             return Get(login).Role;
+        }
+
+        public UserDataModel GetProfileInfo(long userId)
+        {
+            var userGroups = (from user in context.Users
+                              join booking in context.Booking on user.Id equals booking.UserId
+                              join apartment in context.Apartments on booking.ApartmentId equals apartment.Id
+                              where user.Id == userId
+                              select new UserDataModel
+                              {
+                                  Id = userId,
+                                  Booking = _mapper.Map<List<BookingDataModel>>(user.Booking.ToList()),
+                                  Login = user.Login,
+                                  Name = user.Name,
+                                  Role = user.Role,
+                              }).ToList()/*.SingleOrDefault()*/;
+
+            var userModel = userGroups.GroupBy(x => x.Id).Select(x => new UserDataModel()
+            {
+                Id = x.Key,
+                Booking = x.First().Booking,
+                Login = x.First().Login,
+                Name = x.First().Name,
+                Role = x.First().Role,
+            }).SingleOrDefault();
+
+            return userModel;
         }
     }
 }
