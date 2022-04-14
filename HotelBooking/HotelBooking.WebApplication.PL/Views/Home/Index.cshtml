@@ -1,6 +1,17 @@
 ﻿@model List<ApartmentInfoViewModel>
 @{
     Layout = "_Layout";
+
+    bool IsAuthenticated = false;
+    bool IsAdmin = false;
+    if (User.Identity.IsAuthenticated)
+    {
+        IsAuthenticated = true;
+    }
+    if (User.Claims?.SingleOrDefault(x => x.Type == ClaimsIdentity.DefaultRoleClaimType)?.Value == "Admin")
+    {
+        IsAdmin = true;
+    }
 }
 
 <div style="display:flex; flex-direction:row;">
@@ -11,18 +22,16 @@
         {
             <div class="apartment-element">
                 <div>
-                    @if (string.IsNullOrEmpty(apartment.Info))
-                    {
-                        <h6>
-                            No info about this apartment
-                        </h6>
-                    }
-                    else
-                    {
-                        <h6>
+                    <h6>
+                        @if (string.IsNullOrEmpty(apartment.Info))
+                        {
+                            @TitleResource.ApartmentNoInfo
+                        }
+                        else
+                        {
                             @apartment.Info
-                        </h6>
-                    }
+                        }
+                    </h6>
                 </div>
                 <div class="apartment-info">
                     <div class="apartment-info-element">
@@ -38,16 +47,19 @@
                         @apartment.Cost
                     </div>
                 </div>
-                <div class="interaction-buttons">
-                    <div class="interaction-buttons-inner">
-                        <button class="btn btn-primary" onclick="document.location='/Apartment/BookingApartment?apartmentId=@apartment.Id'">Booking</button>
-                        <button class="btn btn-primary" onclick="document.location='/User/NotifyWhenFree?apartmentId=@apartment.Id'">Notify</button>
-                        @if (User?.Claims?.SingleOrDefault(x => x.Type == ClaimsIdentity.DefaultRoleClaimType)?.Value == "Admin")
-                        {
-                            <button class="btn btn-info" onclick="document.location='Apartment/EditApartment?id=@apartment.Id'">Edit</button>
-                        }
+                @if (IsAuthenticated)
+                {
+                    <div class="interaction-buttons">
+                        <div class="interaction-buttons-inner">
+                            <button class="btn btn-primary" onclick="document.location='/Apartment/BookingApartment?apartmentId=@apartment.Id'">Booking</button>
+                            <button class="btn btn-primary" onclick="document.location='/User/NotifyWhenFree?apartmentId=@apartment.Id'">Notify</button>
+                            @if (IsAdmin)
+                            {
+                                <button class="btn btn-info" onclick="document.location='Apartment/EditApartment?id=@apartment.Id'">Edit</button>
+                            }
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         }
     </div>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HotelBooking.BLL.DTOModels;
 using HotelBooking.BLL.Services.IServices;
+using HotelBooking.Common.ResourceFiles;
 using HotelBooking.WebApplication.PL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -65,28 +66,25 @@ namespace HotelBooking.WebApplication.PL.Controllers
         {
             if (viewModel.DepartureDate < viewModel.ArrivalDate)
             {
-                ModelState.AddModelError("DepartureDate", "Wrong input");
+                ModelState.AddModelError("DepartureDate", TitleResource.ValidationMessageForBookingOnWrongInput);
                 return View();
             }
             else if (viewModel.DepartureDate == viewModel.ArrivalDate)
             {
-                ModelState.AddModelError("ArrivalDate", "Can not be a same day");
-                ModelState.AddModelError("DepartureDate", "Can not be a same day");
+                ModelState.AddModelError("ArrivalDate", TitleResource.ValidationMessageForBookingOnSameDates);
+                ModelState.AddModelError("DepartureDate", TitleResource.ValidationMessageForBookingOnSameDates);
                 return View();
             }
 
             if (ModelState.IsValid)
             {
-                viewModel.ArrivalDate = viewModel.ArrivalDate.AddHours(9);
-                viewModel.DepartureDate = viewModel.DepartureDate.AddHours(6);
-
                 var login = User.Claims.SingleOrDefault(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;
                 viewModel.User = _mapper.Map<UserInfoViewModel>(_userService.GetUserInfo(login));
                 bool success = _bookingService.BookingApartment(_mapper.Map<BookingDTO>(viewModel));
 
                 if (!success)
                 {
-                    ModelState.AddModelError("ArrivalDate", "Some dates are occupied");
+                    ModelState.AddModelError("ArrivalDate", TitleResource.ValidationMessageForBookingOnOccupiedDates);
                     return View(viewModel);
                 }
             }

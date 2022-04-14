@@ -2,6 +2,7 @@
 using HotelBooking.BLL.DTOModels;
 using HotelBooking.BLL.Services.IServices;
 using HotelBooking.Common.Enums;
+using HotelBooking.Common.ResourceFiles;
 using HotelBooking.DAL.DataModels;
 using HotelBooking.DAL.Repositories.IRepositories;
 using System;
@@ -41,7 +42,7 @@ namespace HotelBooking.BLL.Services
 
             var notificationModel = new NotificationDataModel
             {
-                Message = "The hotel is free now!",
+                Message = TitleResource.NotificationMessageForApartmentIsFreeNow,
                 Status = Status.Awaiting,
                 NotificationType = NotificationType.ForApartmentEndOccupy,
                 UserId = userId,
