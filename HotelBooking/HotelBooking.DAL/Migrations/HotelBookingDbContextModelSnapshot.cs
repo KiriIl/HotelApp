@@ -50,7 +50,7 @@ namespace HotelBooking.DAL.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("ApartmentId")
+                    b.Property<long>("ApartmentId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("ArrivalDate")
@@ -59,7 +59,7 @@ namespace HotelBooking.DAL.Migrations
                     b.Property<DateTime>("DepartureDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -99,11 +99,15 @@ namespace HotelBooking.DAL.Migrations
                 {
                     b.HasOne("HotelBooking.DAL.Models.Apartment", "Apartment")
                         .WithMany("Booking")
-                        .HasForeignKey("ApartmentId");
+                        .HasForeignKey("ApartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HotelBooking.DAL.Models.User", "User")
                         .WithMany("Booking")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Apartment");
 

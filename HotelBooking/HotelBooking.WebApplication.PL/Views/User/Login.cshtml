@@ -6,22 +6,22 @@
 <div>
     <div>
         <form action="Login" method="post">
-            <div>
+            <div class="mb-2">
                 @Html.DisplayNameFor(x => x.Login):
                 @Html.TextBoxFor(x => x.Login)
                 @Html.ValidationMessageFor(x => x.Login)
             </div>
-            <div>
+            <div class="mb-2">
                 @Html.DisplayNameFor(x => x.Password):
-                @Html.TextBoxFor(x => x.Password)
+                @Html.TextBoxFor(x => x.Password, htmlAttributes: new { type = "password" })
                 @Html.ValidationMessageFor(x => x.Password)
             </div>
             <div>
-                <button type="submit">Ok</button>
+                <button type="submit" class="btn btn-primary">Ok</button>
             </div>
         </form>
     </div>
     <div>
-        <a href="/User/Registration">No account?</a>
+        <a class="no-decoration" href="/User/Registration">No account?</a>
     </div>
 </div>

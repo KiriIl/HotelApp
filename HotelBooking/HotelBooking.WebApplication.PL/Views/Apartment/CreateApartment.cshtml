@@ -1,0 +1,32 @@
+﻿@model ApartmentViewModel
+@{
+    Layout = "_Layout";
+}
+
+<div>
+    <form action="CreateApartment" method="post">
+        <div class="m-1">
+            @Html.DisplayNameFor(x => x.RoomsCount)
+            @Html.TextBoxFor(x => x.RoomsCount)
+            @Html.ValidationMessageFor(x => x.RoomsCount)
+        </div>
+        <div class="m-1">
+            @Html.DisplayNameFor(x => x.Cost)
+            @Html.TextBoxFor(x => x.Cost)
+            @Html.ValidationMessageFor(x => x.Cost)
+        </div>
+        <div class="m-1">
+            @Html.DisplayNameFor(x => x.RoomType)
+            @Html.DropDownListFor(x => x.RoomType, new SelectList(Enum.GetValues(typeof(RoomType))))
+            @Html.ValidationMessageFor(x => x.RoomType)
+        </div>
+        <div class="m-1">
+            @Html.DisplayNameFor(x => x.Info)
+            @Html.TextBoxFor(x => x.Info)
+            @Html.ValidationMessageFor(x => x.Info)
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Ok</button>
+        </div>
+    </form>
+</div>

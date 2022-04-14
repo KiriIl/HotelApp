@@ -7,6 +7,10 @@
     display: none;
 }
 
+.top {
+    background-color: #b8d6ff;
+}
+
 .info {
     display: flex;
     flex-direction: row;
@@ -29,7 +33,7 @@
 }
 
 .button-shift-paragraph {
-    position: fixed;
+    position: absolute;
 }
 
 .content {
@@ -43,4 +47,42 @@
 
 .nav-element {
     padding: 0px 10px;
+}
+
+.apartments-gallery {
+    display: flex;
+    flex: 8;
+    flex-direction: column;
+}
+
+.apartment-element {
+    margin: 5px;
+    background-color: aliceblue;
+    padding: 10px;
+}
+
+.interaction-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.no-decoration {
+    text-decoration: none;
+}
+
+.interaction-buttons-inner {
+    flex-direction: column;
+}
+
+.apartment-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.apartment-info-element {
+    padding: 0px 5px;
+}
+
+.side {
+    flex: 2;
 }

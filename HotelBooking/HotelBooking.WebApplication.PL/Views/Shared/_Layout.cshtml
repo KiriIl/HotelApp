@@ -20,6 +20,11 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/icon.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap-grid.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap-reboot.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap-utilities.css" asp-append-version="true" />
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/scripts/ShiftMenuScript.js"></script>
@@ -33,30 +38,32 @@
                 @if (IsAdmin)
                 {
                     <div class="nav-element">
-                        <a href="/Home/CreateApartment">Add apartment</a>
+                        <a href="/Apartment/CreateApartment">Add apartment</a>
                     </div>
                 }
                 <div class="nav-element">
-                    apartments
+                    <a class="no-decoration" href="/Home/Index">Apartments</a>
                 </div>
             </div>
             <div class="user-info">
                 @if (IsAuthenticated)
                 {
-                    <div class="icon notification">
-                    
+                    <div class="icon notification position-relative nav-element">
+                        <span class="position-absolute top-100 translate-middle badge rounded-pill bg-danger" style="font-size:8px;">
+                            1+
+                        </span>
                     </div>
-                    <div class="profile">
-                    
+                    <div class="profile nav-element">
+                        <a class="no-decoration" href="/User/Profile">Profile</a>
                     </div>
-                    <div class="logout">
-                    
+                    <div class="logout nav-element">
+                        <a class="no-decoration" href="/User/Logout">Logout</a>
                     </div>
                 }
                 else
                 {
-                    <div class="login">
-                        <a href="/User/Login">Login</a>
+                    <div class="login nav-element">
+                        <a class="no-decoration" href="/User/Login">Login</a>
                     </div>
                 }
             </div>

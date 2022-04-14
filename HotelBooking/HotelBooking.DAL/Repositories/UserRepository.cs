@@ -12,9 +12,23 @@ namespace HotelBooking.DAL.Repositories
         private IMapper _mapper;
         public UserRepository(
             HotelBookingDbContext context,
-            IMapper mapper) : base(context) 
+            IMapper mapper) : base(context)
         {
             _mapper = mapper;
+        }
+
+        public override User Get(long id)
+        {
+            var user = dbSet.Select(x => new User
+            {
+                Id = x.Id,
+                Login = x.Login,
+                Name = x.Name,
+                Password = x.Password,
+                Role = x.Role,
+            }).SingleOrDefault(x => x.Id == id);
+
+            return user;
         }
 
         public UserDataModel Get(string login)

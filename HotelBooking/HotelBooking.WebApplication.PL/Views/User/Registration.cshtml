@@ -1,37 +1,37 @@
 ﻿@model RegistrationViewModel
-@{ 
+@{
     Layout = "_Layout";
 }
 
 <div>
     <div>
         <form action="Registration" method="post">
-            <div>
-                @Html.DisplayNameFor(x=>x.Name):
-                @Html.TextBoxFor(x=>x.Name)
-                @Html.ValidationMessageFor(x=>x.Name)
+            <div class="mb-2">
+                @Html.DisplayNameFor(x => x.Name):
+                @Html.TextBoxFor(x => x.Name)
+                @Html.ValidationMessageFor(x => x.Name)
             </div>
-            <div>
+            <div class="mb-2">
                 @Html.DisplayNameFor(x => x.Login):
                 @Html.TextBoxFor(x => x.Login)
                 @Html.ValidationMessageFor(x => x.Login)
             </div>
-            <div>
+            <div class="mb-2">
                 @Html.DisplayNameFor(x => x.Password):
-                @Html.TextBoxFor(x => x.Password)
+                @Html.TextBoxFor(x => x.Password, htmlAttributes: new { type = "password" })
                 @Html.ValidationMessageFor(x => x.Password)
             </div>
-            <div>
+            <div class="mb-2">
                 @Html.DisplayNameFor(x => x.PasswordConfirm):
-                @Html.TextBoxFor(x => x.PasswordConfirm)
+                @Html.TextBoxFor(x => x.PasswordConfirm, htmlAttributes: new { type = "password" })
                 @Html.ValidationMessageFor(x => x.PasswordConfirm)
             </div>
             <div>
-                <button type="submit">Ok</button>
+                <button type="submit" class="btn btn-primary">Ok</button>
             </div>
         </form>
     </div>
     <div>
-        <a href="/User/Login">Have an account?</a>
+        <a class="no-decoration" href="/User/Login">Have an account?</a>
     </div>
 </div>

@@ -63,5 +63,10 @@ namespace HotelBooking.BLL.Services
         {
             return _userRepository.GetUserRole(login);
         }
+
+        public UserDTO GetUserInfo(string login)
+        {
+            return _mapper.Map<UserDTO>(_userRepository.Get(login));
+        }
     }
 }

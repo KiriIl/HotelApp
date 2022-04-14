@@ -6,7 +6,7 @@ namespace HotelBooking.DAL.Models
 {
     public class Apartment : BaseModel
     {
-        public virtual List<Booking> Booking { get; set; }
+        public ICollection<Booking> Booking { get; set; }
         public int RoomsCount { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Cost { get; set; }
