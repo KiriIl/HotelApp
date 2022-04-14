@@ -6,6 +6,7 @@ namespace HotelBooking.WebApplication.PL.Models
 {
     public class ApartmentViewModel
     {
+        public long Id { get; set; }
         [Required]
         [MinValue(1)]
         public int RoomsCount { get; set; }

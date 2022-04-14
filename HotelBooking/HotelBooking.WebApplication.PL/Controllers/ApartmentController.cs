@@ -46,7 +46,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
 
                 _apartmentService.CreateApartment(apartmentDTO);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             return View();
@@ -68,7 +68,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
                 ModelState.AddModelError("DepartureDate", "Wrong input");
                 return View();
             }
-            else if(viewModel.DepartureDate == viewModel.ArrivalDate)
+            else if (viewModel.DepartureDate == viewModel.ArrivalDate)
             {
                 ModelState.AddModelError("ArrivalDate", "Can not be a same day");
                 ModelState.AddModelError("DepartureDate", "Can not be a same day");
@@ -92,6 +92,14 @@ namespace HotelBooking.WebApplication.PL.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult EditApartment(long id)
+        {
+            var viewModel = _mapper.Map<ApartmentViewModel>(_apartmentService.Get(id));
+            return View(viewModel);
         }
     }
 }

@@ -1,4 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@{
+    bool IsAuthenticated=false;
+    bool IsAdmin=false;
+    if (User.Identity.IsAuthenticated)
+    {
+        IsAuthenticated = true;
+    }
+    if (User.Claims?.SingleOrDefault(x => x.Type == ClaimsIdentity.DefaultRoleClaimType)?.Value == "Admin")
+    {
+        IsAdmin = true;
+    }
+}
+
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -18,20 +32,22 @@
 </head>
 <body>
     <div class="icon paragraph button-shift-paragraph">
-
     </div>
     <div class="top">
         <div class="info">
             <div class="navigation">
-                <div class="nav-element">
-                    <a class="no-decoration" href="/Apartment/CreateApartment">Add apartment</a>
-                </div>
+                @if (IsAdmin)
+                {
+                    <div class="nav-element">
+                        <a href="/Apartment/CreateApartment">Add apartment</a>
+                    </div>
+                }
                 <div class="nav-element">
                     <a class="no-decoration" href="/Home/Index">Apartments</a>
                 </div>
             </div>
             <div class="user-info">
-                @if (User.Identity.IsAuthenticated)
+                @if (IsAuthenticated)
                 {
                     <div class="icon notification position-relative nav-element">
                         <span class="position-absolute top-100 translate-middle badge rounded-pill bg-danger notify-counter hide">
@@ -64,7 +80,6 @@
         @RenderBody()
     </div>
     <div class="footer">
-
     </div>
 </body>
 </html>
