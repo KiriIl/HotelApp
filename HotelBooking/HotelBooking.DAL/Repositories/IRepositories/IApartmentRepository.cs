@@ -6,6 +6,6 @@ namespace HotelBooking.DAL.Repositories.IRepositories
 {
     public interface IApartmentRepository : IBaseRepository<Apartment>
     {
-        public List<ApartmentDataModel> GetAll();
+        List<ApartmentDataModel> GetAll();
     }
 }

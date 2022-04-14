@@ -7,6 +7,6 @@ namespace HotelBooking.BLL.Services.IServices
     {
         void CreateApartment(ApartmentDTO apartment);
         ApartmentDTO Get(long id);
-        public List<ApartmentDTO> GetAllApartments();
+        List<ApartmentDTO> GetAllApartments();
     }
 }
