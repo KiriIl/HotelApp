@@ -13,7 +13,8 @@ namespace HotelBooking.Test.Service
     class BookingServiceTest
     {
         private BookingService _bookingService;
-        private Mock<IBookingRepository> _mockRepository;
+        private Mock<IBookingRepository> _mockBookingRepository;
+        private Mock<INotificationRepository> _mockNotificationRepository;
         private Mock<IMapper> _mockMapper;
         private BookingDataModel booking1;
         private BookingDataModel booking2;
@@ -22,9 +23,10 @@ namespace HotelBooking.Test.Service
         [SetUp]
         public void Setup()
         {
-            _mockRepository = new Mock<IBookingRepository>();
+            _mockBookingRepository = new Mock<IBookingRepository>();
             _mockMapper = new Mock<IMapper>();
-            _bookingService = new BookingService(_mockMapper.Object, _mockRepository.Object);
+            _mockNotificationRepository = new Mock<INotificationRepository>();
+            _bookingService = new BookingService(_mockMapper.Object, _mockBookingRepository.Object,_mockNotificationRepository.Object);
 
             booking1 = new BookingDataModel
             {
@@ -69,7 +71,7 @@ namespace HotelBooking.Test.Service
 
             List<BookingDataModel> list = new List<BookingDataModel>() { booking1, booking2 };
 
-            _mockRepository.Setup(x => x.GetReservationsByApartmentId(1)).Returns(list);
+            _mockBookingRepository.Setup(x => x.GetReservationsByApartmentId(1)).Returns(list);
 
             _mockMapper.Setup(x => x.Map<BookingDataModel>(bookingDTO)).Returns(bookingDataModel);
 
@@ -104,7 +106,7 @@ namespace HotelBooking.Test.Service
 
             List<BookingDataModel> list = new List<BookingDataModel>() { booking1, booking2 };
 
-            _mockRepository.Setup(x => x.GetReservationsByApartmentId(1)).Returns(list);
+            _mockBookingRepository.Setup(x => x.GetReservationsByApartmentId(1)).Returns(list);
 
             _mockMapper.Setup(x => x.Map<BookingDataModel>(bookingDTO)).Returns(bookingDataModel);
 
