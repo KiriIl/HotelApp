@@ -2,7 +2,7 @@
 
 namespace HotelBooking.DAL.Models
 {
-    public class Order : BaseModel
+    public class Booking : BaseModel
     {
         public virtual User User { get; set; }
         public virtual Apartment Apartment { get; set; }
