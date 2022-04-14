@@ -43,14 +43,14 @@ namespace HotelBooking.DAL.Migrations
                     b.ToTable("Apartments");
                 });
 
-            modelBuilder.Entity("HotelBooking.DAL.Models.Order", b =>
+            modelBuilder.Entity("HotelBooking.DAL.Models.Booking", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("ApartmentId")
+                    b.Property<long>("ApartmentId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("ArrivalDate")
@@ -59,7 +59,7 @@ namespace HotelBooking.DAL.Migrations
                     b.Property<DateTime>("DepartureDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -68,7 +68,38 @@ namespace HotelBooking.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Booking");
+                });
+
+            modelBuilder.Entity("HotelBooking.DAL.Models.Notification", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("ApartmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NotificationType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApartmentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("HotelBooking.DAL.Models.User", b =>
@@ -95,15 +126,38 @@ namespace HotelBooking.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("HotelBooking.DAL.Models.Order", b =>
+            modelBuilder.Entity("HotelBooking.DAL.Models.Booking", b =>
                 {
                     b.HasOne("HotelBooking.DAL.Models.Apartment", "Apartment")
-                        .WithMany("Orders")
-                        .HasForeignKey("ApartmentId");
+                        .WithMany("Booking")
+                        .HasForeignKey("ApartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HotelBooking.DAL.Models.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .WithMany("Booking")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Apartment");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HotelBooking.DAL.Models.Notification", b =>
+                {
+                    b.HasOne("HotelBooking.DAL.Models.Apartment", "Apartment")
+                        .WithMany("Notifications")
+                        .HasForeignKey("ApartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HotelBooking.DAL.Models.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Apartment");
 
@@ -112,12 +166,16 @@ namespace HotelBooking.DAL.Migrations
 
             modelBuilder.Entity("HotelBooking.DAL.Models.Apartment", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("Booking");
+
+                    b.Navigation("Notifications");
                 });
 
             modelBuilder.Entity("HotelBooking.DAL.Models.User", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("Booking");
+
+                    b.Navigation("Notifications");
                 });
 #pragma warning restore 612, 618
         }

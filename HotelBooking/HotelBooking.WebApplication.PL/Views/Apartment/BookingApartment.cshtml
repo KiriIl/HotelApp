@@ -1,0 +1,55 @@
+﻿@model BookingApartmentViewModel
+@{
+    Layout = "_Layout";
+}
+
+<div>
+    <form action="BookingApartment" method="post">
+        <div class="m-2">
+            <div>
+                @Html.HiddenFor(x => x.Apartment.Id)
+            </div>
+            <div>
+                @Html.DisplayNameFor(x => x.Apartment.RoomsCount):
+                @Html.DisplayTextFor(x => x.Apartment.RoomsCount)
+            </div>
+            <div>
+                @Html.DisplayNameFor(x => x.Apartment.Cost):
+                @Html.DisplayTextFor(x => x.Apartment.Cost)
+            </div>
+            <div>
+                @Html.DisplayNameFor(x => x.Apartment.RoomType):
+                @Html.DisplayTextFor(x => x.Apartment.RoomType)
+            </div>
+            <div>
+                @Html.DisplayNameFor(x => x.Apartment.Info):
+                @if (string.IsNullOrEmpty(Model.Apartment.Info))
+                {
+                    <span>No info about this apartment</span>
+                }
+                else
+                {
+                    @Html.DisplayTextFor(x => x.Apartment.Info)
+                }
+            </div>
+        </div>
+        <div class="m-1">
+            @Html.DisplayNameFor(x => x.ArrivalDate)
+            @Html.TextBoxFor(x => x.ArrivalDate, new { @type = "date" })
+            @Html.ValidationMessageFor(x => x.ArrivalDate)
+        </div>
+        <div class="m-1">
+            @Html.DisplayNameFor(x => x.DepartureDate)
+            @Html.TextBoxFor(x => x.DepartureDate, new { @type = "date" })
+            @Html.ValidationMessageFor(x => x.DepartureDate)
+        </div>
+        <div class="m-1">
+            @Html.DisplayNameFor(x => x.NotifyOnEndDate)
+            @Html.CheckBoxFor(x => x.NotifyOnEndDate)
+            @Html.ValidationMessageFor(x => x.NotifyOnEndDate)
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Ok</button>
+        </div>
+    </form>
+</div>

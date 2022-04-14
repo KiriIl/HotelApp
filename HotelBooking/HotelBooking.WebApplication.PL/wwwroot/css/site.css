@@ -1,0 +1,114 @@
+﻿body {
+    display: flex;
+    flex-direction: column;
+}
+
+.hide {
+    display: none !important;
+}
+
+.top {
+    background-color: #b8d6ff;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 30px;
+}
+
+.user-info {
+    display: flex;
+}
+
+.layoyt-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-shift-paragraph {
+    position: absolute;
+}
+
+.content {
+    margin-top: 40px;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-element {
+    padding: 0px 10px;
+}
+
+.apartments-gallery {
+    display: flex;
+    flex: 8;
+    flex-direction: column;
+}
+
+.apartment-element {
+    margin: 5px;
+    background-color: aliceblue;
+    padding: 10px;
+}
+
+.interaction-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.no-decoration {
+    text-decoration: none;
+}
+
+.interaction-buttons-inner {
+    flex-direction: column;
+}
+
+.apartment-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.apartment-info-element {
+    padding: 0px 5px;
+}
+
+.side {
+    flex: 2;
+}
+
+.notification-popup {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    background-color: #ababab;
+    right: 0px;
+    top: 30px;
+    overflow: auto;
+}
+
+.notification-element {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.notification-content {
+    padding: 10px 20px;
+}
+
+.notify-counter {
+    font-size: 8px;
+}
+

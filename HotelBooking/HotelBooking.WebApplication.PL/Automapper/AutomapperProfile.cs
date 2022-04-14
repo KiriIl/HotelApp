@@ -13,6 +13,17 @@ namespace HotelBooking.WebApplication.PL.Automapper
             CreateMap<User, UserDataModel>().ReverseMap();
             CreateMap<UserDTO, UserDataModel>().ReverseMap();
             CreateMap<UserDTO, RegistrationViewModel>().ReverseMap();
+            CreateMap<Apartment, ApartmentDataModel>().ReverseMap();
+            CreateMap<ApartmentDTO, ApartmentDataModel>().ReverseMap();
+            CreateMap<ApartmentDTO, ApartmentViewModel>().ReverseMap();
+            CreateMap<ApartmentDTO, ApartmentInfoViewModel>().ReverseMap();
+            CreateMap<UserInfoViewModel, UserDTO>().ReverseMap();
+            CreateMap<BookingApartmentViewModel, BookingDTO>().ReverseMap();
+            CreateMap<BookingDataModel, BookingDTO>().ReverseMap();
+            CreateMap<BookingDataModel, Booking>().ReverseMap();
+            CreateMap<Notification, NotificationDataModel>().ReverseMap();
+            CreateMap<NotificationDataModel, NotificationDTO>().ReverseMap();
+            CreateMap<NotificationDTO, NotificationViewModel>().ReverseMap();
         }
     }
 }

@@ -1,7 +1,56 @@
-﻿@{
+﻿@model List<ApartmentInfoViewModel>
+@{
     Layout = "_Layout";
 }
 
-<div>
-    @*html soon*@
+<div style="display:flex; flex-direction:row;">
+    <div class="side">
+    </div>
+    <div class="apartments-gallery">
+        @foreach (var apartment in Model)
+        {
+            <div class="apartment-element">
+                <div>
+                    @if (string.IsNullOrEmpty(apartment.Info))
+                    {
+                        <h6>
+                            No info about this apartment
+                        </h6>
+                    }
+                    else
+                    {
+                        <h6>
+                            @apartment.Info
+                        </h6>
+                    }
+                </div>
+                <div class="apartment-info">
+                    <div class="apartment-info-element">
+                        @Html.DisplayNameFor(x => x.First().RoomsCount)
+                        @apartment.RoomsCount,
+                    </div>
+                    <div class="apartment-info-element">
+                        @Html.DisplayNameFor(x => x.First().RoomType)
+                        @apartment.RoomType,
+                    </div>
+                    <div class="apartment-info-element">
+                        @Html.DisplayNameFor(x => x.First().Cost)
+                        @apartment.Cost
+                    </div>
+                </div>
+                <div class="interaction-buttons">
+                    <div class="interaction-buttons-inner">
+                        <button class="btn btn-primary" onclick="document.location='/Apartment/BookingApartment?apartmentId=@apartment.Id'">Booking</button>
+                        <button class="btn btn-primary" onclick="document.location='/User/NotifyWhenFree?apartmentId=@apartment.Id'">Notify</button>
+                        @if (User?.Claims?.SingleOrDefault(x => x.Type == ClaimsIdentity.DefaultRoleClaimType)?.Value == "Admin")
+                        {
+                            <button class="btn btn-info" onclick="document.location='Apartment/EditApartment?id=@apartment.Id'">Edit</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="side">
+    </div>
 </div>

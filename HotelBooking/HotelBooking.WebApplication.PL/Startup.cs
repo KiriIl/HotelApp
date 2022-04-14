@@ -38,11 +38,39 @@ namespace HotelBooking.WebApplication.PL
                 x => new UserRepository(
                     x.GetService<HotelBookingDbContext>(),
                     x.GetService<IMapper>()));
+            services.AddScoped<IApartmentRepository>(
+                x=>new ApartmentRepository(
+                    x.GetService<HotelBookingDbContext>(),
+                    x.GetService<IMapper>()));
+
             services.AddScoped<IUserService>(
                 x => new UserService(
                     x.GetService<IUserRepository>(),
                     x.GetService<IMapper>()));
+            services.AddScoped<IApartmentService>(
+                x=> new ApartmentService(
+                    x.GetService<IMapper>(),
+                    x.GetService<IApartmentRepository>()));
 
+            services.AddScoped<IBookingRepository>(
+                x => new BookingRepository(
+                    x.GetService<HotelBookingDbContext>(),
+                    x.GetService<IMapper>()));
+            services.AddScoped<IBookingService>(
+                x => new BookingService(
+                    x.GetService<IMapper>(),
+                    x.GetService<IBookingRepository>(),
+                    x.GetService<INotificationRepository>()));
+
+            services.AddScoped<INotificationRepository>(
+                x => new NotificationRepository(
+                    x.GetService<HotelBookingDbContext>(),
+                    x.GetService<IMapper>()));
+            services.AddScoped<INotificationService>(
+                x => new NotificationService(
+                    x.GetService<IMapper>(),
+                    x.GetService<INotificationRepository>(),
+                    x.GetService<IBookingRepository>()));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +81,8 @@ namespace HotelBooking.WebApplication.PL
             }
 
             app.UseRouting();
+
+            app.UseStaticFiles();
 
             app.UseAuthentication();
             app.UseAuthorization();
