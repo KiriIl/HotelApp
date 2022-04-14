@@ -9,6 +9,6 @@ namespace HotelBooking.DAL.Repositories.IRepositories
     {
         void Save(BookingDataModel bookingDataModel);
         bool IsEmpty(long apartmentId, DateTime arrivalDate, DateTime departureDate);
-        public List<BookingDataModel> GetReservationsByApartmentId(long apartmentId);
+        List<BookingDataModel> GetReservationsByApartmentId(long apartmentId);
     }
 }
