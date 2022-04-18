@@ -120,21 +120,12 @@ namespace HotelBooking.WebApplication.PL.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult UpdateNotifications()
-        {
-            var userId = GetUserId();
-            _notificationService.UpdateNotifications(userId);
-            return Ok();
-        }
-
-        [Authorize]
-        [HttpGet]
         public IActionResult Profile()
         {
             var userId = GetUserId();
             var viewModel = _mapper.Map<UserProfileViewModel>(_userService.GetUserProfile(userId));
             var currentTime = DateTime.UtcNow;
-            foreach (var x in viewModel?.Booking)
+            foreach (var x in viewModel.Booking)
             {
                 if (x.DepartureDate > currentTime)
                 {

@@ -20,40 +20,17 @@
         @foreach (var item in Model.Booking)
         {
             <div class="apartment-element">
-                <div class="apartment-info">
-                    <div>
-                        @Html.HiddenFor(x => item.Id)
-                    </div>
-                    <div class="apartment-info-element">
-                        @Html.DisplayNameFor(x => x.Booking.First().ArrivalDate)
-                        @item.ArrivalDate
-                    </div>
-                    <div class="apartment-info-element">
-                        @Html.DisplayNameFor(x => x.Booking.First().DepartureDate)
-                        @item.DepartureDate
-                    </div>
-                    <div class="apartment-info-element">
-                        @Html.DisplayNameFor(x => x.Booking.First().Apartment.Info)
-                        @if (string.IsNullOrEmpty(item.Apartment.Info))
+                @Html.Partial("_apartmentPartial", item.Apartment)
+                @Html.DisplayNameFor(x => x.Booking.First().ArrivalDate)
+                @item.ArrivalDate
+                @Html.DisplayNameFor(x => x.Booking.First().DepartureDate)
+                @item.DepartureDate
+                <div class="interaction-buttons">
+                    <div class="interaction-buttons-inner">
+                        @if (item.Deniable)
                         {
-                            @TitleResource.ApartmentNoInfo
+                            <button class="btn btn-danger" onclick="document.location='/Apartment/DenyBooking?bookingId=@item.Id'">Deny</button>
                         }
-                        else
-                        {
-                            @item.Apartment.Info
-                        }
-                    </div>
-                    <div class="apartment-info-element">
-                        @Html.DisplayNameFor(x => x.Booking.First().Apartment.RoomsCount)
-                        @item.Apartment.RoomsCount
-                    </div>
-                    <div class="apartment-info-element">
-                        @Html.DisplayNameFor(x => x.Booking.First().Apartment.RoomType)
-                        @item.Apartment.RoomType
-                    </div>
-                    <div class="apartment-info-element">
-                        @Html.DisplayNameFor(x => x.Booking.First().Apartment.Cost)
-                        @item.Apartment.Cost
                     </div>
                 </div>
             </div>

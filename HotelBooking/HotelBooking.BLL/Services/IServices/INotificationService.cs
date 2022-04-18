@@ -9,6 +9,6 @@ namespace HotelBooking.BLL.Services.IServices
         List<NotificationDTO> GetNotificationsByUserId(long userId);
         void ChangeNotificationStatus(long notificationId, Status status);
         bool CreateNotifyOnEndOccupy(long userId, long apartmentId);
-        void UpdateNotifications(long userId);
+        void UpdateNotifications();
     }
 }

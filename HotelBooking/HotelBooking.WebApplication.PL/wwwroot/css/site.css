@@ -59,6 +59,7 @@
     margin: 5px;
     background-color: aliceblue;
     padding: 10px;
+    flex-direction: column;
 }
 
 .interaction-buttons {
@@ -112,3 +113,6 @@
     font-size: 8px;
 }
 
+.apartment-content {
+    flex-direction: row;
+}

@@ -1,4 +1,5 @@
 using AutoMapper;
+using HotelBooking.BLL.Quartz;
 using HotelBooking.BLL.Services;
 using HotelBooking.BLL.Services.IServices;
 using HotelBooking.DAL.Models;
@@ -12,6 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 
 namespace HotelBooking.WebApplication.PL
 {
@@ -39,7 +43,7 @@ namespace HotelBooking.WebApplication.PL
                     x.GetService<HotelBookingDbContext>(),
                     x.GetService<IMapper>()));
             services.AddScoped<IApartmentRepository>(
-                x=>new ApartmentRepository(
+                x => new ApartmentRepository(
                     x.GetService<HotelBookingDbContext>(),
                     x.GetService<IMapper>()));
 
@@ -48,7 +52,7 @@ namespace HotelBooking.WebApplication.PL
                     x.GetService<IUserRepository>(),
                     x.GetService<IMapper>()));
             services.AddScoped<IApartmentService>(
-                x=> new ApartmentService(
+                x => new ApartmentService(
                     x.GetService<IMapper>(),
                     x.GetService<IApartmentRepository>()));
 
@@ -71,6 +75,17 @@ namespace HotelBooking.WebApplication.PL
                     x.GetService<IMapper>(),
                     x.GetService<INotificationRepository>(),
                     x.GetService<IBookingRepository>()));
+
+            services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+            services.AddSingleton<QuartzJobRunner>();
+
+            services.AddSingleton<NotificationJob>();
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(NotificationJob),
+                cronExpression: _configuration.GetValue<string>("cronExpression")));
+
+            services.AddHostedService<QuartzHostedService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

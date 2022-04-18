@@ -65,7 +65,7 @@ namespace HotelBooking.DAL.Repositories
                                  where booking.UserId == userId
                                  select new BookingDataModel
                                  {
-                                     Id = userId,
+                                     Id = booking.Id,
                                      Apartment = _mapper.Map<ApartmentDataModel>(booking.Apartment),
                                      ArrivalDate = booking.ArrivalDate,
                                      DepartureDate = booking.DepartureDate,

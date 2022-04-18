@@ -59,10 +59,10 @@ namespace HotelBooking.DAL.Repositories
             Save(_mapper.Map<Notification>(notificationModel));
         }
 
-        public List<NotificationDataModel> GetByUserAwaitingNotifications(long userId)
+        public List<NotificationDataModel> GetAwaitingNotifications()
         {
             var userNotifications = (from notifications in context.Notifications
-                                     where notifications.UserId == userId && notifications.Status == Status.Awaiting
+                                     where notifications.Status == Status.Awaiting
                                      select new NotificationDataModel
                                      {
                                          Id = notifications.Id,

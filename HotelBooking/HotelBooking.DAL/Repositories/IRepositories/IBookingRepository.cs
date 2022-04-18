@@ -11,5 +11,6 @@ namespace HotelBooking.DAL.Repositories.IRepositories
         List<BookingDataModel> GetReservationsByApartmentId(long apartmentId);
         bool IsOccupiedOnDate(long apartmentId, DateTime date);
         bool IsEndOfRentBooking(long apartmentId, long userId, DateTime currentDate, DateTime nextDate);
+        void Remove(long bookingId);
     }
 }

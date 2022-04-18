@@ -76,7 +76,7 @@ namespace HotelBooking.BLL.Services
             var currentDate = DateTime.UtcNow;
             if (currentDate < model.ArrivalDate)
             {
-                //delete
+                _bookingRepository.Remove(model.Id);
             }
             else
             {

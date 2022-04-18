@@ -1,7 +1,5 @@
 ﻿$(document).ready(function () {
 
-    $.get(`/User/UpdateNotifications`);
-
     const unchecked = 1;
     const checked = 2;
 
