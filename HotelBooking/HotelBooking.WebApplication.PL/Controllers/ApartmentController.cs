@@ -47,7 +47,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
 
                 _apartmentService.SaveApartment(apartmentDTO);
 
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
 
             return View();
@@ -87,9 +87,11 @@ namespace HotelBooking.WebApplication.PL.Controllers
                     ModelState.AddModelError("ArrivalDate", TitleResource.ValidationMessageForBookingOnOccupiedDates);
                     return View(viewModel);
                 }
+
+                return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("Index", "Home");
+            return View(viewModel);
         }
 
         [Authorize(Roles = "Admin")]

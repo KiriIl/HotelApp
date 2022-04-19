@@ -5,7 +5,7 @@
 
     var counter = 0;
     getNotifications();
-    setInterval(getNotifications, 100000);
+    setInterval(getNotifications, 60000);
 
     $('.notification').click(function () {
         $('.notification-popup').toggleClass('hide');

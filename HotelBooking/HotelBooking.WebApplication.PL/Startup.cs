@@ -74,7 +74,8 @@ namespace HotelBooking.WebApplication.PL
                 x => new NotificationService(
                     x.GetService<IMapper>(),
                     x.GetService<INotificationRepository>(),
-                    x.GetService<IBookingRepository>()));
+                    x.GetService<IBookingRepository>(),
+                    x.GetService<IApartmentRepository>()));
 
             services.AddSingleton<IJobFactory, SingletonJobFactory>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
@@ -83,7 +84,7 @@ namespace HotelBooking.WebApplication.PL
             services.AddSingleton<NotificationJob>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(NotificationJob),
-                cronExpression: _configuration.GetValue<string>("cronExpression")));
+                cronExpression: _configuration.GetValue<string>("testCronExpression")));
 
             services.AddHostedService<QuartzHostedService>();
         }

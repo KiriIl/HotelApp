@@ -16,15 +16,18 @@ namespace HotelBooking.BLL.Services
         private IMapper _mapper;
         private INotificationRepository _notificationRepository;
         private IBookingRepository _bookingRepository;
+        private IApartmentRepository _apartmentRepository;
 
         public NotificationService(
             IMapper mapper,
             INotificationRepository notificationRepository,
-            IBookingRepository bookingRepository)
+            IBookingRepository bookingRepository,
+            IApartmentRepository apartmentRepository)
         {
             _mapper = mapper;
             _notificationRepository = notificationRepository;
             _bookingRepository = bookingRepository;
+            _apartmentRepository = apartmentRepository;
         }
 
         public void ChangeNotificationStatus(long notificationId, Status status)
@@ -40,9 +43,11 @@ namespace HotelBooking.BLL.Services
                 return false;
             }
 
+            var apartmentModel = _apartmentRepository.Get(apartmentId);
+
             var notificationModel = new NotificationDataModel
             {
-                Message = TitleResource.NotificationMessageForApartmentIsFreeNow,
+                Message = $"{TitleResource.NotificationMessageForApartmentIsFreeNow}, Apartment {apartmentModel.RoomType} with {apartmentModel.RoomsCount} rooms.",
                 Status = Status.Awaiting,
                 NotificationType = NotificationType.ForApartmentEndOccupy,
                 UserId = userId,
