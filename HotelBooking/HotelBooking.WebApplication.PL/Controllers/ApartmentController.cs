@@ -45,7 +45,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
             {
                 var apartmentDTO = _mapper.Map<ApartmentDTO>(viewModel);
 
-                _apartmentService.CreateApartment(apartmentDTO);
+                _apartmentService.SaveApartment(apartmentDTO);
 
                 return RedirectToAction("Index","Home");
             }
@@ -94,9 +94,9 @@ namespace HotelBooking.WebApplication.PL.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult EditApartment(long id)
+        public IActionResult EditApartment(long apartmentId)
         {
-            var viewModel = _mapper.Map<ApartmentViewModel>(_apartmentService.Get(id));
+            var viewModel = _mapper.Map<ApartmentViewModel>(_apartmentService.Get(apartmentId));
             return View(viewModel);
         }
 

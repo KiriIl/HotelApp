@@ -9,28 +9,28 @@ namespace HotelBooking.BLL.Quartz
 {
     public class QuartzHostedService : IHostedService
     {
-        private readonly ISchedulerFactory schedulerFactory;
-        private readonly IJobFactory jobFactory;
-        private readonly IEnumerable<JobSchedule> jobSchedules;
         public IScheduler Scheduler { get; set; }
+
+        private ISchedulerFactory _schedulerFactory;
+        private IJobFactory _jobFactory;
+        private IEnumerable<JobSchedule> _jobSchedules;
 
         public QuartzHostedService(
             ISchedulerFactory schedulerFactory,
             IJobFactory jobFactory,
             IEnumerable<JobSchedule> jobSchedules)
         {
-            this.schedulerFactory = schedulerFactory;
-            this.jobFactory = jobFactory;
-            this.jobSchedules = jobSchedules;
+            _schedulerFactory = schedulerFactory;
+            _jobFactory = jobFactory;
+            _jobSchedules = jobSchedules;
         }
-
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            Scheduler = await schedulerFactory.GetScheduler(cancellationToken);
-            Scheduler.JobFactory = jobFactory;
+            Scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
+            Scheduler.JobFactory = _jobFactory;
 
-            foreach (var jobSchedule in jobSchedules)
+            foreach (var jobSchedule in _jobSchedules)
             {
                 var job = CreateJob(jobSchedule);
                 var trigger = CreateTrigger(jobSchedule);

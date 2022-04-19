@@ -2,7 +2,6 @@
 using HotelBooking.BLL.DTOModels;
 using HotelBooking.BLL.Services.IServices;
 using HotelBooking.DAL.DataModels;
-using HotelBooking.DAL.Models;
 using HotelBooking.DAL.Repositories.IRepositories;
 using System.Collections.Generic;
 
@@ -21,15 +20,15 @@ namespace HotelBooking.BLL.Services
             _apartmentRepository = apartmentRepository;
         }
 
-        public void CreateApartment(ApartmentDTO apartment)
+        public void SaveApartment(ApartmentDTO apartment)
         {
             var apartmentDM = _mapper.Map<ApartmentDataModel>(apartment);
-            _apartmentRepository.Save(_mapper.Map<Apartment>(apartmentDM));
+            _apartmentRepository.Save(apartmentDM);
         }
 
-        public ApartmentDTO Get(long id)
+        public ApartmentDTO Get(long apartmentId)
         {
-            return _mapper.Map<ApartmentDTO>(_mapper.Map<ApartmentDataModel>(_apartmentRepository.Get(id)));
+            return _mapper.Map<ApartmentDTO>(_apartmentRepository.Get(apartmentId));
         }
 
         public List<ApartmentDTO> GetAllApartments()

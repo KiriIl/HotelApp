@@ -11,6 +11,7 @@ namespace HotelBooking.DAL.Repositories
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
         private IMapper _mapper;
+
         public UserRepository(
             HotelBookingDbContext context,
             IMapper mapper) : base(context)
@@ -18,7 +19,7 @@ namespace HotelBooking.DAL.Repositories
             _mapper = mapper;
         }
 
-        public override User Get(long id)
+        public override User Get(long userId)
         {
             var user = dbSet.Select(x => new User
             {
@@ -27,9 +28,15 @@ namespace HotelBooking.DAL.Repositories
                 Name = x.Name,
                 Password = x.Password,
                 Role = x.Role,
-            }).SingleOrDefault(x => x.Id == id);
+            }).SingleOrDefault(x => x.Id == userId);
 
             return user;
+        }
+
+        UserDataModel IUserRepository.Get(long userId)
+        {
+            var model = Get(userId);
+            return _mapper.Map<UserDataModel>(model);
         }
 
         public UserDataModel Get(string login)

@@ -43,10 +43,9 @@ namespace HotelBooking.BLL.Services
                                    (table.ArrivalDate <= arrivalDate && table.ArrivalDate >= departureDate ||
                                    table.DepartureDate <= arrivalDate && table.DepartureDate >= departureDate) ||
                                    (arrivalDate >= table.ArrivalDate && departureDate <= table.DepartureDate)
-                                   select table
-                                   );
+                                   select table);
 
-            if (!reservsInPeriod.Any())
+            if (reservsInPeriod.Count() == 0)
             {
                 _bookingRepository.Save(_mapper.Map<BookingDataModel>(booking));
 
@@ -61,7 +60,7 @@ namespace HotelBooking.BLL.Services
                         Message = TitleResource.NotificationMessageForEndingOfBooking
                     };
 
-                    _notificationRepository.CreateNotification(notificationModel);
+                    _notificationRepository.SaveNotification(notificationModel);
                 }
 
                 return true;
@@ -72,7 +71,7 @@ namespace HotelBooking.BLL.Services
 
         public void DenyBooking(long bookingId)
         {
-            var model = _mapper.Map<BookingDTO>(_mapper.Map<BookingDataModel>(_bookingRepository.Get(bookingId)));
+            var model = _mapper.Map<BookingDTO>(_bookingRepository.Get(bookingId));
             var currentDate = DateTime.UtcNow;
             if (currentDate < model.ArrivalDate)
             {

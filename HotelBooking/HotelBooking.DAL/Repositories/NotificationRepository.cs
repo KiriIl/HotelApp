@@ -11,6 +11,7 @@ namespace HotelBooking.DAL.Repositories
     public class NotificationRepository : BaseRepository<Notification>, INotificationRepository
     {
         private IMapper _mapper;
+
         public NotificationRepository(
             HotelBookingDbContext context,
             IMapper mapper) : base(context)
@@ -54,7 +55,7 @@ namespace HotelBooking.DAL.Repositories
             return notificationCollection;
         }
 
-        public void CreateNotification(NotificationDataModel notificationModel)
+        public void SaveNotification(NotificationDataModel notificationModel)
         {
             Save(_mapper.Map<Notification>(notificationModel));
         }

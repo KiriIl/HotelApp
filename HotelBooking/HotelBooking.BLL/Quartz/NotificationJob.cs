@@ -7,16 +7,16 @@ namespace HotelBooking.BLL.Quartz
 {
     public class NotificationJob : IJob
     {
-        private readonly IServiceScopeFactory serviceProvider;
+        private IServiceScopeFactory _serviceProvider;
 
         public NotificationJob(IServiceScopeFactory serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider;
         }
 
         public Task Execute(IJobExecutionContext context)
         {
-            using (var scope = serviceProvider.CreateScope())
+            using (var scope = _serviceProvider.CreateScope())
             {
                 var service = scope.ServiceProvider.GetRequiredService<INotificationService>();
 

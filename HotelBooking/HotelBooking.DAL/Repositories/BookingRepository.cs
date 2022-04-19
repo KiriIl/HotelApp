@@ -31,6 +31,12 @@ namespace HotelBooking.DAL.Repositories
             return booking;
         }
 
+        BookingDataModel IBookingRepository.Get(long bookingId)
+        {
+            var model = Get(bookingId);
+            return _mapper.Map<BookingDataModel>(model);
+        }
+
         public void Save(BookingDataModel bookingDataModel)
         {
             var bookingModel = new Booking()

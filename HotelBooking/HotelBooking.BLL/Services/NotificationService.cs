@@ -49,7 +49,7 @@ namespace HotelBooking.BLL.Services
                 ApartmentId = apartmentId,
             };
 
-            _notificationRepository.CreateNotification(notificationModel);
+            _notificationRepository.SaveNotification(notificationModel);
 
             return true;
         }

@@ -5,8 +5,8 @@ namespace HotelBooking.BLL.Services.IServices
 {
     public interface IApartmentService
     {
-        void CreateApartment(ApartmentDTO apartment);
-        ApartmentDTO Get(long id);
+        void SaveApartment(ApartmentDTO apartment);
+        ApartmentDTO Get(long apartmentId);
         List<ApartmentDTO> GetAllApartments();
     }
 }

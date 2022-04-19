@@ -10,5 +10,6 @@ namespace HotelBooking.DAL.Repositories.IRepositories
         bool CheckUserLogin(string login, string password);
         Role GetUserRole(string login);
         UserDataModel GetProfileInfo(long userId);
+        new UserDataModel Get(long userId);
     }
 }

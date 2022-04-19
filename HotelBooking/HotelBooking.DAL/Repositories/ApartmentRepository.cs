@@ -10,6 +10,7 @@ namespace HotelBooking.DAL.Repositories
     public class ApartmentRepository : BaseRepository<Apartment>, IApartmentRepository
     {
         private IMapper _mapper;
+
         public ApartmentRepository(
             HotelBookingDbContext context,
             IMapper mapper) : base(context)
@@ -34,6 +35,18 @@ namespace HotelBooking.DAL.Repositories
         public List<ApartmentDataModel> GetAll()
         {
             return _mapper.Map<List<ApartmentDataModel>>(dbSet.ToList());
+        }
+
+        public void Save(ApartmentDataModel apartment)
+        {
+            var model = _mapper.Map<Apartment>(apartment);
+            base.Save(model);
+        }
+
+        ApartmentDataModel IApartmentRepository.Get(long apartmentId)
+        {
+            var model = Get(apartmentId);
+            return _mapper.Map<ApartmentDataModel>(model);
         }
     }
 }

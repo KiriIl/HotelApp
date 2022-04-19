@@ -7,20 +7,18 @@ namespace HotelBooking.BLL.Quartz
 {
     public class SingletonJobFactory : IJobFactory
     {
-        private readonly IServiceProvider serviceProvider;
+        private IServiceProvider _serviceProvider;
 
         public SingletonJobFactory(IServiceProvider serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider;
         }
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            return serviceProvider.GetRequiredService<QuartzJobRunner>();
+            return _serviceProvider.GetRequiredService<QuartzJobRunner>();
         }
 
-        public void ReturnJob(IJob job)
-        {
-        }
+        public void ReturnJob(IJob job) { }
     }
 }
