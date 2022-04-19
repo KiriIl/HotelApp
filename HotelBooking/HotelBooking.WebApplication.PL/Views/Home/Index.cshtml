@@ -8,6 +8,7 @@
     {
         IsAuthenticated = true;
     }
+
     if (User.Claims?.SingleOrDefault(x => x.Type == ClaimsIdentity.DefaultRoleClaimType)?.Value == "Admin")
     {
         IsAdmin = true;
@@ -26,9 +27,12 @@
                 {
                     <div class="interaction-buttons">
                         <div class="interaction-buttons-inner">
-                            <button class="btn btn-primary" onclick="document.location='/Apartment/BookingApartment?apartmentId=@apartment.Id'">Booking</button>
-                            <button class="btn btn-primary" onclick="document.location='/User/NotifyWhenFree?apartmentId=@apartment.Id'">Notify</button>
-                            @if (IsAdmin)
+                            @if (!IsAdmin)
+                            {
+                                <button class="btn btn-primary" onclick="document.location='/Apartment/BookingApartment?apartmentId=@apartment.Id'">Booking</button>
+                                <button class="btn btn-primary" onclick="document.location='/User/NotifyWhenFree?apartmentId=@apartment.Id'">Notify</button>
+                            }
+                            else
                             {
                                 <button class="btn btn-info" onclick="document.location='/Apartment/EditApartment?apartmentId=@apartment.Id'">Edit</button>
                             }
