@@ -53,6 +53,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
             return View();
         }
 
+        [Authorize(Roles ="Client")]
         [HttpGet]
         public IActionResult BookingApartment(long apartmentId)
         {
@@ -61,6 +62,7 @@ namespace HotelBooking.WebApplication.PL.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Client")]
         [HttpPost]
         public IActionResult BookingApartment(BookingApartmentViewModel viewModel)
         {
