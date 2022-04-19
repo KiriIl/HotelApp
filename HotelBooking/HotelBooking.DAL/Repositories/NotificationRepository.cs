@@ -11,6 +11,7 @@ namespace HotelBooking.DAL.Repositories
     public class NotificationRepository : BaseRepository<Notification>, INotificationRepository
     {
         private IMapper _mapper;
+
         public NotificationRepository(
             HotelBookingDbContext context,
             IMapper mapper) : base(context)
@@ -54,15 +55,15 @@ namespace HotelBooking.DAL.Repositories
             return notificationCollection;
         }
 
-        public void CreateNotification(NotificationDataModel notificationModel)
+        public void SaveNotification(NotificationDataModel notificationModel)
         {
             Save(_mapper.Map<Notification>(notificationModel));
         }
 
-        public List<NotificationDataModel> GetByUserAwaitingNotifications(long userId)
+        public List<NotificationDataModel> GetAwaitingNotifications()
         {
             var userNotifications = (from notifications in context.Notifications
-                                     where notifications.UserId == userId && notifications.Status == Status.Awaiting
+                                     where notifications.Status == Status.Awaiting
                                      select new NotificationDataModel
                                      {
                                          Id = notifications.Id,

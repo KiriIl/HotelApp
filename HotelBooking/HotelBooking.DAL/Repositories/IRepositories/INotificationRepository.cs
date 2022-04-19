@@ -10,7 +10,7 @@ namespace HotelBooking.DAL.Repositories.IRepositories
         List<NotificationDataModel> GetByUser(long userId);
         void ChangeStatus(long notificationId, Status newStatus);
         List<NotificationDataModel> GetByUserApartment(long userId, long apartmentId);
-        void CreateNotification(NotificationDataModel notificationModel);
-        List<NotificationDataModel> GetByUserAwaitingNotifications(long userId);
+        void SaveNotification(NotificationDataModel notificationModel);
+        List<NotificationDataModel> GetAwaitingNotifications();
     }
 }

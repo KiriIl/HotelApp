@@ -16,15 +16,18 @@ namespace HotelBooking.BLL.Services
         private IMapper _mapper;
         private INotificationRepository _notificationRepository;
         private IBookingRepository _bookingRepository;
+        private IApartmentRepository _apartmentRepository;
 
         public NotificationService(
             IMapper mapper,
             INotificationRepository notificationRepository,
-            IBookingRepository bookingRepository)
+            IBookingRepository bookingRepository,
+            IApartmentRepository apartmentRepository)
         {
             _mapper = mapper;
             _notificationRepository = notificationRepository;
             _bookingRepository = bookingRepository;
+            _apartmentRepository = apartmentRepository;
         }
 
         public void ChangeNotificationStatus(long notificationId, Status status)
@@ -40,16 +43,18 @@ namespace HotelBooking.BLL.Services
                 return false;
             }
 
+            var apartmentModel = _apartmentRepository.Get(apartmentId);
+
             var notificationModel = new NotificationDataModel
             {
-                Message = TitleResource.NotificationMessageForApartmentIsFreeNow,
+                Message = $"{TitleResource.NotificationMessageForApartmentIsFreeNow}, Apartment {apartmentModel.RoomType} with {apartmentModel.RoomsCount} rooms.",
                 Status = Status.Awaiting,
                 NotificationType = NotificationType.ForApartmentEndOccupy,
                 UserId = userId,
                 ApartmentId = apartmentId,
             };
 
-            _notificationRepository.CreateNotification(notificationModel);
+            _notificationRepository.SaveNotification(notificationModel);
 
             return true;
         }
@@ -59,11 +64,11 @@ namespace HotelBooking.BLL.Services
             return _mapper.Map<List<NotificationDTO>>(_notificationRepository.GetByUser(userId));
         }
 
-        public void UpdateNotifications(long userId)
+        public void UpdateNotifications()
         {
             var currentDate = DateTime.UtcNow;
             var nextDate = currentDate.AddDays(1);
-            var listModels = _mapper.Map<List<NotificationDTO>>(_notificationRepository.GetByUserAwaitingNotifications(userId));
+            var listModels = _mapper.Map<List<NotificationDTO>>(_notificationRepository.GetAwaitingNotifications());
             var group1 = listModels.Where(x => x.NotificationType == NotificationType.ForApartmentEndOccupy).ToList();
             var group2 = listModels.Where(x => x.NotificationType == NotificationType.ForApartmentEndRent).ToList();
 
@@ -78,7 +83,7 @@ namespace HotelBooking.BLL.Services
 
             foreach (var x in group2)
             {
-                var IsEndOfRentBooking = _bookingRepository.IsEndOfRentBooking(x.ApartmentId, userId, currentDate, nextDate);
+                var IsEndOfRentBooking = _bookingRepository.IsEndOfRentBooking(x.ApartmentId, x.UserId, currentDate, nextDate);
                 if (IsEndOfRentBooking)
                 {
                     _notificationRepository.ChangeStatus(x.Id, Status.Unchecked);

@@ -1,0 +1,30 @@
+﻿@model ApartmentInfoViewModel
+
+<div class="apartment-content">
+    <div class="apartment-title">
+        <h6>
+            @if (string.IsNullOrEmpty(Model.Info))
+            {
+                @TitleResource.ApartmentNoInfo
+            }
+            else
+            {
+                @Model.Info
+            }
+        </h6>
+    </div>
+    <div class="apartment-info">
+        <div class="apartment-info-element">
+            @Html.DisplayNameFor(x => x.RoomsCount)
+            @Html.DisplayFor(x => x.RoomsCount),
+        </div>
+        <div class="apartment-info-element">
+            @Html.DisplayNameFor(x => x.RoomType)
+            @Html.DisplayFor(x => x.RoomType),
+        </div>
+        <div class="apartment-info-element">
+            @Html.DisplayNameFor(x => x.Cost)
+            @Html.DisplayFor(x => x.Cost),
+        </div>
+    </div>
+</div>

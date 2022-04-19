@@ -1,4 +1,5 @@
 ﻿using HotelBooking.Common.ResourceFiles;
+using HotelBooking.WebApplication.PL.Models.ValidationAttributes;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,6 +12,7 @@ namespace HotelBooking.WebApplication.PL.Models
         public long IdApartment { get; set; }
         public long IdUser { get; set; }
         [Required]
+        [Date]
         [Display(ResourceType = typeof(TitleResource), Name = "BookingApartmentArrivalDate")]
         public DateTime ArrivalDate { get; set; }
         [Required]

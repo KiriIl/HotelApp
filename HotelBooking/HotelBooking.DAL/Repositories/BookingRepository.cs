@@ -19,6 +19,24 @@ namespace HotelBooking.DAL.Repositories
             _mapper = mapper;
         }
 
+        public override Booking Get(long id)
+        {
+            var booking = dbSet.Select(x => new Booking
+            {
+                Id = x.Id,
+                ArrivalDate = x.ArrivalDate,
+                DepartureDate = x.DepartureDate,
+            }).SingleOrDefault(x => x.Id == id);
+
+            return booking;
+        }
+
+        BookingDataModel IBookingRepository.Get(long bookingId)
+        {
+            var model = Get(bookingId);
+            return _mapper.Map<BookingDataModel>(model);
+        }
+
         public void Save(BookingDataModel bookingDataModel)
         {
             var bookingModel = new Booking()

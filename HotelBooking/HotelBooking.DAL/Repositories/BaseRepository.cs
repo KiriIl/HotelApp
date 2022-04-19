@@ -34,5 +34,17 @@ namespace HotelBooking.DAL.Repositories
 
             context.SaveChanges();
         }
+
+        public virtual void Remove(T model)
+        {
+            context.Remove(model);
+            context.SaveChanges();
+        }
+
+        public virtual void Remove(long id)
+        {
+            var model = Get(id);
+            Remove(model);
+        }
     }
 }
